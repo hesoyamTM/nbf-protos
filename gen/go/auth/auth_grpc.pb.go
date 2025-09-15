@@ -24,6 +24,8 @@ const (
 	Auth_Logout_FullMethodName            = "/auth.Auth/Logout"
 	Auth_VerifyPhoneNumber_FullMethodName = "/auth.Auth/VerifyPhoneNumber"
 	Auth_RefreshToken_FullMethodName      = "/auth.Auth/RefreshToken"
+	Auth_GoogleLoginURL_FullMethodName    = "/auth.Auth/GoogleLoginURL"
+	Auth_GoogleAuthorize_FullMethodName   = "/auth.Auth/GoogleAuthorize"
 )
 
 // AuthClient is the client API for Auth service.
@@ -35,6 +37,8 @@ type AuthClient interface {
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
 	VerifyPhoneNumber(ctx context.Context, in *VerifyPhoneNumberRequest, opts ...grpc.CallOption) (*VerifyPhoneNumberResponse, error)
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
+	GoogleLoginURL(ctx context.Context, in *GoogleLoginURLRequest, opts ...grpc.CallOption) (*GoogleLoginURLResponse, error)
+	GoogleAuthorize(ctx context.Context, in *GoogleAuthorizeRequest, opts ...grpc.CallOption) (*GoogleAuthorizeResponse, error)
 }
 
 type authClient struct {
@@ -95,6 +99,26 @@ func (c *authClient) RefreshToken(ctx context.Context, in *RefreshTokenRequest, 
 	return out, nil
 }
 
+func (c *authClient) GoogleLoginURL(ctx context.Context, in *GoogleLoginURLRequest, opts ...grpc.CallOption) (*GoogleLoginURLResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GoogleLoginURLResponse)
+	err := c.cc.Invoke(ctx, Auth_GoogleLoginURL_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) GoogleAuthorize(ctx context.Context, in *GoogleAuthorizeRequest, opts ...grpc.CallOption) (*GoogleAuthorizeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GoogleAuthorizeResponse)
+	err := c.cc.Invoke(ctx, Auth_GoogleAuthorize_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
@@ -104,6 +128,8 @@ type AuthServer interface {
 	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
 	VerifyPhoneNumber(context.Context, *VerifyPhoneNumberRequest) (*VerifyPhoneNumberResponse, error)
 	RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
+	GoogleLoginURL(context.Context, *GoogleLoginURLRequest) (*GoogleLoginURLResponse, error)
+	GoogleAuthorize(context.Context, *GoogleAuthorizeRequest) (*GoogleAuthorizeResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -128,6 +154,12 @@ func (UnimplementedAuthServer) VerifyPhoneNumber(context.Context, *VerifyPhoneNu
 }
 func (UnimplementedAuthServer) RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RefreshToken not implemented")
+}
+func (UnimplementedAuthServer) GoogleLoginURL(context.Context, *GoogleLoginURLRequest) (*GoogleLoginURLResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GoogleLoginURL not implemented")
+}
+func (UnimplementedAuthServer) GoogleAuthorize(context.Context, *GoogleAuthorizeRequest) (*GoogleAuthorizeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GoogleAuthorize not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 func (UnimplementedAuthServer) testEmbeddedByValue()              {}
@@ -240,6 +272,42 @@ func _Auth_RefreshToken_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_GoogleLoginURL_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GoogleLoginURLRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).GoogleLoginURL(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_GoogleLoginURL_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).GoogleLoginURL(ctx, req.(*GoogleLoginURLRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_GoogleAuthorize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GoogleAuthorizeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).GoogleAuthorize(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_GoogleAuthorize_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).GoogleAuthorize(ctx, req.(*GoogleAuthorizeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +334,14 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RefreshToken",
 			Handler:    _Auth_RefreshToken_Handler,
+		},
+		{
+			MethodName: "GoogleLoginURL",
+			Handler:    _Auth_GoogleLoginURL_Handler,
+		},
+		{
+			MethodName: "GoogleAuthorize",
+			Handler:    _Auth_GoogleAuthorize_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -12,6 +12,8 @@ service Auth {
   rpc Logout(LogoutRequest) returns (LogoutResponse);
   rpc VerifyPhoneNumber(VerifyPhoneNumberRequest) returns (VerifyPhoneNumberResponse);
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc GoogleLoginURL(GoogleLoginURLRequest) returns (GoogleLoginURLResponse);
+  rpc GoogleAuthorize(GoogleAuthorizeRequest) returns (GoogleAuthorizeResponse);
 }
 
 message RegisterRequest {
@@ -63,4 +65,24 @@ message RefreshTokenResponse {
   string refresh_token = 3;
   google.protobuf.Timestamp access_expire_at = 4;
   google.protobuf.Timestamp refresh_expire_at = 5;
+}
+
+message GoogleLoginURLRequest {
+
+}
+
+message GoogleLoginURLResponse {
+  string url = 1;
+}
+
+message GoogleAuthorizeRequest {
+  string state = 1;
+  string code = 2;
+}
+
+message GoogleAuthorizeResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  google.protobuf.Timestamp access_expire_at = 3;
+  google.protobuf.Timestamp refresh_expire_at = 4;
 }
