@@ -742,6 +742,206 @@ func (x *GoogleAuthorizeResponse) GetRefreshExpireAt() *timestamppb.Timestamp {
 	return nil
 }
 
+type YandexLoginURLRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *YandexLoginURLRequest) Reset() {
+	*x = YandexLoginURLRequest{}
+	mi := &file_auth_auth_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *YandexLoginURLRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*YandexLoginURLRequest) ProtoMessage() {}
+
+func (x *YandexLoginURLRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_auth_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use YandexLoginURLRequest.ProtoReflect.Descriptor instead.
+func (*YandexLoginURLRequest) Descriptor() ([]byte, []int) {
+	return file_auth_auth_proto_rawDescGZIP(), []int{14}
+}
+
+type YandexLoginURLResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *YandexLoginURLResponse) Reset() {
+	*x = YandexLoginURLResponse{}
+	mi := &file_auth_auth_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *YandexLoginURLResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*YandexLoginURLResponse) ProtoMessage() {}
+
+func (x *YandexLoginURLResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_auth_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use YandexLoginURLResponse.ProtoReflect.Descriptor instead.
+func (*YandexLoginURLResponse) Descriptor() ([]byte, []int) {
+	return file_auth_auth_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *YandexLoginURLResponse) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+type YandexAuthorizeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	State         string                 `protobuf:"bytes,1,opt,name=state,proto3" json:"state,omitempty"`
+	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *YandexAuthorizeRequest) Reset() {
+	*x = YandexAuthorizeRequest{}
+	mi := &file_auth_auth_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *YandexAuthorizeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*YandexAuthorizeRequest) ProtoMessage() {}
+
+func (x *YandexAuthorizeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_auth_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use YandexAuthorizeRequest.ProtoReflect.Descriptor instead.
+func (*YandexAuthorizeRequest) Descriptor() ([]byte, []int) {
+	return file_auth_auth_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *YandexAuthorizeRequest) GetState() string {
+	if x != nil {
+		return x.State
+	}
+	return ""
+}
+
+func (x *YandexAuthorizeRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+type YandexAuthorizeResponse struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	AccessToken     string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	RefreshToken    string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	AccessExpireAt  *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=access_expire_at,json=accessExpireAt,proto3" json:"access_expire_at,omitempty"`
+	RefreshExpireAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=refresh_expire_at,json=refreshExpireAt,proto3" json:"refresh_expire_at,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *YandexAuthorizeResponse) Reset() {
+	*x = YandexAuthorizeResponse{}
+	mi := &file_auth_auth_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *YandexAuthorizeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*YandexAuthorizeResponse) ProtoMessage() {}
+
+func (x *YandexAuthorizeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_auth_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use YandexAuthorizeResponse.ProtoReflect.Descriptor instead.
+func (*YandexAuthorizeResponse) Descriptor() ([]byte, []int) {
+	return file_auth_auth_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *YandexAuthorizeResponse) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
+	}
+	return ""
+}
+
+func (x *YandexAuthorizeResponse) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
+	}
+	return ""
+}
+
+func (x *YandexAuthorizeResponse) GetAccessExpireAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.AccessExpireAt
+	}
+	return nil
+}
+
+func (x *YandexAuthorizeResponse) GetRefreshExpireAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.RefreshExpireAt
+	}
+	return nil
+}
+
 var File_auth_auth_proto protoreflect.FileDescriptor
 
 const file_auth_auth_proto_rawDesc = "" +
@@ -787,7 +987,18 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12D\n" +
 	"\x10access_expire_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\x0eaccessExpireAt\x12F\n" +
-	"\x11refresh_expire_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\x0frefreshExpireAt2\xe2\x03\n" +
+	"\x11refresh_expire_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\x0frefreshExpireAt\"\x17\n" +
+	"\x15YandexLoginURLRequest\"*\n" +
+	"\x16YandexLoginURLResponse\x12\x10\n" +
+	"\x03url\x18\x01 \x01(\tR\x03url\"B\n" +
+	"\x16YandexAuthorizeRequest\x12\x14\n" +
+	"\x05state\x18\x01 \x01(\tR\x05state\x12\x12\n" +
+	"\x04code\x18\x02 \x01(\tR\x04code\"\xef\x01\n" +
+	"\x17YandexAuthorizeResponse\x12!\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12D\n" +
+	"\x10access_expire_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\x0eaccessExpireAt\x12F\n" +
+	"\x11refresh_expire_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\x0frefreshExpireAt2\xff\x04\n" +
 	"\x04Auth\x129\n" +
 	"\bRegister\x12\x15.auth.RegisterRequest\x1a\x16.auth.RegisterResponse\x120\n" +
 	"\x05Login\x12\x12.auth.LoginRequest\x1a\x13.auth.LoginResponse\x123\n" +
@@ -795,7 +1006,9 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\x11VerifyPhoneNumber\x12\x1e.auth.VerifyPhoneNumberRequest\x1a\x1f.auth.VerifyPhoneNumberResponse\x12E\n" +
 	"\fRefreshToken\x12\x19.auth.RefreshTokenRequest\x1a\x1a.auth.RefreshTokenResponse\x12K\n" +
 	"\x0eGoogleLoginURL\x12\x1b.auth.GoogleLoginURLRequest\x1a\x1c.auth.GoogleLoginURLResponse\x12N\n" +
-	"\x0fGoogleAuthorize\x12\x1c.auth.GoogleAuthorizeRequest\x1a\x1d.auth.GoogleAuthorizeResponseB\x10Z\x0eauth.v1;authv1b\x06proto3"
+	"\x0fGoogleAuthorize\x12\x1c.auth.GoogleAuthorizeRequest\x1a\x1d.auth.GoogleAuthorizeResponse\x12K\n" +
+	"\x0eYandexLoginURL\x12\x1b.auth.YandexLoginURLRequest\x1a\x1c.auth.YandexLoginURLResponse\x12N\n" +
+	"\x0fYandexAuthorize\x12\x1c.auth.YandexAuthorizeRequest\x1a\x1d.auth.YandexAuthorizeResponseB\x10Z\x0eauth.v1;authv1b\x06proto3"
 
 var (
 	file_auth_auth_proto_rawDescOnce sync.Once
@@ -809,7 +1022,7 @@ func file_auth_auth_proto_rawDescGZIP() []byte {
 	return file_auth_auth_proto_rawDescData
 }
 
-var file_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_auth_auth_proto_goTypes = []any{
 	(*RegisterRequest)(nil),           // 0: auth.RegisterRequest
 	(*RegisterResponse)(nil),          // 1: auth.RegisterResponse
@@ -825,34 +1038,44 @@ var file_auth_auth_proto_goTypes = []any{
 	(*GoogleLoginURLResponse)(nil),    // 11: auth.GoogleLoginURLResponse
 	(*GoogleAuthorizeRequest)(nil),    // 12: auth.GoogleAuthorizeRequest
 	(*GoogleAuthorizeResponse)(nil),   // 13: auth.GoogleAuthorizeResponse
-	(*timestamppb.Timestamp)(nil),     // 14: google.protobuf.Timestamp
+	(*YandexLoginURLRequest)(nil),     // 14: auth.YandexLoginURLRequest
+	(*YandexLoginURLResponse)(nil),    // 15: auth.YandexLoginURLResponse
+	(*YandexAuthorizeRequest)(nil),    // 16: auth.YandexAuthorizeRequest
+	(*YandexAuthorizeResponse)(nil),   // 17: auth.YandexAuthorizeResponse
+	(*timestamppb.Timestamp)(nil),     // 18: google.protobuf.Timestamp
 }
 var file_auth_auth_proto_depIdxs = []int32{
-	14, // 0: auth.VerifyPhoneNumberResponse.access_expire_at:type_name -> google.protobuf.Timestamp
-	14, // 1: auth.VerifyPhoneNumberResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
-	14, // 2: auth.RefreshTokenResponse.access_expire_at:type_name -> google.protobuf.Timestamp
-	14, // 3: auth.RefreshTokenResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
-	14, // 4: auth.GoogleAuthorizeResponse.access_expire_at:type_name -> google.protobuf.Timestamp
-	14, // 5: auth.GoogleAuthorizeResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
-	0,  // 6: auth.Auth.Register:input_type -> auth.RegisterRequest
-	2,  // 7: auth.Auth.Login:input_type -> auth.LoginRequest
-	4,  // 8: auth.Auth.Logout:input_type -> auth.LogoutRequest
-	6,  // 9: auth.Auth.VerifyPhoneNumber:input_type -> auth.VerifyPhoneNumberRequest
-	8,  // 10: auth.Auth.RefreshToken:input_type -> auth.RefreshTokenRequest
-	10, // 11: auth.Auth.GoogleLoginURL:input_type -> auth.GoogleLoginURLRequest
-	12, // 12: auth.Auth.GoogleAuthorize:input_type -> auth.GoogleAuthorizeRequest
-	1,  // 13: auth.Auth.Register:output_type -> auth.RegisterResponse
-	3,  // 14: auth.Auth.Login:output_type -> auth.LoginResponse
-	5,  // 15: auth.Auth.Logout:output_type -> auth.LogoutResponse
-	7,  // 16: auth.Auth.VerifyPhoneNumber:output_type -> auth.VerifyPhoneNumberResponse
-	9,  // 17: auth.Auth.RefreshToken:output_type -> auth.RefreshTokenResponse
-	11, // 18: auth.Auth.GoogleLoginURL:output_type -> auth.GoogleLoginURLResponse
-	13, // 19: auth.Auth.GoogleAuthorize:output_type -> auth.GoogleAuthorizeResponse
-	13, // [13:20] is the sub-list for method output_type
-	6,  // [6:13] is the sub-list for method input_type
-	6,  // [6:6] is the sub-list for extension type_name
-	6,  // [6:6] is the sub-list for extension extendee
-	0,  // [0:6] is the sub-list for field type_name
+	18, // 0: auth.VerifyPhoneNumberResponse.access_expire_at:type_name -> google.protobuf.Timestamp
+	18, // 1: auth.VerifyPhoneNumberResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
+	18, // 2: auth.RefreshTokenResponse.access_expire_at:type_name -> google.protobuf.Timestamp
+	18, // 3: auth.RefreshTokenResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
+	18, // 4: auth.GoogleAuthorizeResponse.access_expire_at:type_name -> google.protobuf.Timestamp
+	18, // 5: auth.GoogleAuthorizeResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
+	18, // 6: auth.YandexAuthorizeResponse.access_expire_at:type_name -> google.protobuf.Timestamp
+	18, // 7: auth.YandexAuthorizeResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
+	0,  // 8: auth.Auth.Register:input_type -> auth.RegisterRequest
+	2,  // 9: auth.Auth.Login:input_type -> auth.LoginRequest
+	4,  // 10: auth.Auth.Logout:input_type -> auth.LogoutRequest
+	6,  // 11: auth.Auth.VerifyPhoneNumber:input_type -> auth.VerifyPhoneNumberRequest
+	8,  // 12: auth.Auth.RefreshToken:input_type -> auth.RefreshTokenRequest
+	10, // 13: auth.Auth.GoogleLoginURL:input_type -> auth.GoogleLoginURLRequest
+	12, // 14: auth.Auth.GoogleAuthorize:input_type -> auth.GoogleAuthorizeRequest
+	14, // 15: auth.Auth.YandexLoginURL:input_type -> auth.YandexLoginURLRequest
+	16, // 16: auth.Auth.YandexAuthorize:input_type -> auth.YandexAuthorizeRequest
+	1,  // 17: auth.Auth.Register:output_type -> auth.RegisterResponse
+	3,  // 18: auth.Auth.Login:output_type -> auth.LoginResponse
+	5,  // 19: auth.Auth.Logout:output_type -> auth.LogoutResponse
+	7,  // 20: auth.Auth.VerifyPhoneNumber:output_type -> auth.VerifyPhoneNumberResponse
+	9,  // 21: auth.Auth.RefreshToken:output_type -> auth.RefreshTokenResponse
+	11, // 22: auth.Auth.GoogleLoginURL:output_type -> auth.GoogleLoginURLResponse
+	13, // 23: auth.Auth.GoogleAuthorize:output_type -> auth.GoogleAuthorizeResponse
+	15, // 24: auth.Auth.YandexLoginURL:output_type -> auth.YandexLoginURLResponse
+	17, // 25: auth.Auth.YandexAuthorize:output_type -> auth.YandexAuthorizeResponse
+	17, // [17:26] is the sub-list for method output_type
+	8,  // [8:17] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_auth_auth_proto_init() }
@@ -866,7 +1089,7 @@ func file_auth_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_auth_auth_proto_rawDesc), len(file_auth_auth_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
