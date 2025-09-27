@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "user.v1;userv1";
+
+service User {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+}
+
+message UserInfo {
+  string id = 1;
+  string name = 2;
+  string surname = 3;
+  repeated string contacts = 4;
+  string avatar = 5;
+  string description = 6;
+}
+
+message CreateUserRequest {
+  UserInfo user = 1;
+}
+
+message CreateUserResponse {
+  
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message GetUserResponse {
+  UserInfo user = 1;
+}
+
+message GetUsersRequest {
+  repeated string ids = 1;
+}
+
+message GetUsersResponse {
+  repeated UserInfo users = 1;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message DeleteUserResponse {
+
+}
+
+message UpdateUserRequest {
+  UserInfo user = 1;
+}
+
+message UpdateUserResponse {
+
+}
