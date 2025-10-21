@@ -1,0 +1,156 @@
+syntax = "proto3";
+
+package matcher;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "matcher_v1;matcherv1";
+
+// Enums based on entity definitions
+enum Sex {
+  SEX_UNSPECIFIED = 0;
+  SEX_MALE = 1;
+  SEX_FEMALE = 2;
+}
+
+enum UserType {
+  USER_TYPE_UNSPECIFIED = 0;
+  USER_TYPE_STUDENT = 1;
+  USER_TYPE_WORKER = 2;
+  USER_TYPE_TOURIST = 3;
+}
+
+// Entity messages
+message Point {
+  double lat = 1;
+  double lon = 2;
+}
+
+message Parameters {
+  string name = 1;
+  string surname = 2;
+  Point geo = 3;
+  repeated string photos = 4;
+  int32 budget = 5;
+  int32 room_count = 6;
+  int32 roommates_count = 7;
+  int32 age = 8;
+  bool smoking = 9;
+  bool alko = 10;
+  bool pet = 11;
+  Sex sex = 12;
+  UserType user_type = 13;
+  string description = 14;
+}
+
+message Form {
+  string id = 1;  // UUID as string
+  string user_id = 2;
+  Parameters parameters = 3;
+  bool active = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message GroupRequest {
+  string id = 1;  // UUID as string
+  string group_id = 2;  // UUID as string
+  string user_id = 3;  // UUID as string
+  google.protobuf.Timestamp created_at = 4;
+}
+
+message Group {
+  string id = 1;  // UUID as string
+  string owner_id = 2;  // UUID as string
+  Parameters parameters = 3;
+  int32 max_users = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+// Use case services and requests/responses
+
+// FormService: CRUD for user forms
+service FormService {
+  rpc CreateForm(CreateFormRequest) returns (google.protobuf.Empty);
+  rpc GetFormByUser(GetFormByUserRequest) returns (Form);
+  rpc UpdateForm(UpdateFormRequest) returns (google.protobuf.Empty);
+  rpc DeleteForm(DeleteFormRequest) returns (google.protobuf.Empty);
+}
+
+message CreateFormRequest {
+  string user_id = 1;  // UUID as string
+  Parameters parameters = 2;
+}
+
+message GetFormByUserRequest {
+  string user_id = 1;  // UUID as string
+}
+
+message UpdateFormRequest {
+  string user_id = 1;  // UUID as string
+  Parameters parameters = 2;
+}
+
+message DeleteFormRequest {
+  string user_id = 1;  // UUID as string
+}
+
+// GroupQuery: Basic group operations
+service GroupQueryService {
+  rpc GetGroup(GetGroupRequest) returns (Group);
+  rpc DeleteGroup(DeleteGroupRequest) returns (google.protobuf.Empty);
+  rpc ListGroupMembers(ListGroupMembersRequest) returns (ListGroupMembersResponse);
+}
+
+message GetGroupRequest {
+  string group_id = 1;  // UUID as string
+}
+
+message DeleteGroupRequest {
+  string owner_id = 1;  // UUID as string
+}
+
+message ListGroupMembersRequest {
+  string group_id = 1;  // UUID as string
+}
+
+message ListGroupMembersResponse {
+  repeated Form members = 1;
+}
+
+// FindGroupService: Recommendations
+service FindGroupService {
+  rpc FindGroups(FindGroupsRequest) returns (FindGroupsResponse);
+}
+
+message FindGroupsRequest {
+  string user_id = 1;  // UUID as string
+}
+
+message FindGroupsResponse {
+  repeated Group groups = 1;
+}
+
+// GroupService: Join requests and management
+service GroupService {
+  rpc SendJoinRequest(SendJoinRequestRequest) returns (google.protobuf.Empty);
+  rpc AcceptJoinRequest(AcceptJoinRequestRequest) returns (google.protobuf.Empty);
+  rpc RejectJoinRequest(RejectJoinRequestRequest) returns (google.protobuf.Empty);
+}
+
+message SendJoinRequestRequest {
+  string user_id = 1;  // UUID as string
+  string group_id = 2;  // UUID as string
+}
+
+message AcceptJoinRequestRequest {
+  string owner_id = 1;  // UUID as string
+  string request_id = 2;  // UUID as string
+}
+
+message RejectJoinRequestRequest {
+  string owner_id = 1;  // UUID as string
+  string request_id = 2;  // UUID as string
+}
