@@ -23,7 +23,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Enums based on entity definitions
 type Sex int32
 
 const (
@@ -125,7 +124,6 @@ func (UserType) EnumDescriptor() ([]byte, []int) {
 	return file_matcher_matcher_proto_rawDescGZIP(), []int{1}
 }
 
-// Entity messages
 type Point struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Lat           float64                `protobuf:"fixed64,1,opt,name=lat,proto3" json:"lat,omitempty"`
@@ -328,7 +326,7 @@ func (x *Parameters) GetDescription() string {
 
 type Form struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` // UUID as string
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Parameters    *Parameters            `protobuf:"bytes,3,opt,name=parameters,proto3" json:"parameters,omitempty"`
 	Active        bool                   `protobuf:"varint,4,opt,name=active,proto3" json:"active,omitempty"`
@@ -412,9 +410,9 @@ func (x *Form) GetUpdatedAt() *timestamppb.Timestamp {
 
 type GroupRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`                          // UUID as string
-	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"` // UUID as string
-	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`    // UUID as string
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -480,8 +478,8 @@ func (x *GroupRequest) GetCreatedAt() *timestamppb.Timestamp {
 
 type Group struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`                          // UUID as string
-	OwnerId       string                 `protobuf:"bytes,2,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"` // UUID as string
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	OwnerId       string                 `protobuf:"bytes,2,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
 	Parameters    *Parameters            `protobuf:"bytes,3,opt,name=parameters,proto3" json:"parameters,omitempty"`
 	MaxUsers      int32                  `protobuf:"varint,4,opt,name=max_users,json=maxUsers,proto3" json:"max_users,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
@@ -562,9 +560,61 @@ func (x *Group) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+type GroupWithScore struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Group         *Group                 `protobuf:"bytes,1,opt,name=group,proto3" json:"group,omitempty"`
+	Score         float32                `protobuf:"fixed32,2,opt,name=score,proto3" json:"score,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GroupWithScore) Reset() {
+	*x = GroupWithScore{}
+	mi := &file_matcher_matcher_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GroupWithScore) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GroupWithScore) ProtoMessage() {}
+
+func (x *GroupWithScore) ProtoReflect() protoreflect.Message {
+	mi := &file_matcher_matcher_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GroupWithScore.ProtoReflect.Descriptor instead.
+func (*GroupWithScore) Descriptor() ([]byte, []int) {
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GroupWithScore) GetGroup() *Group {
+	if x != nil {
+		return x.Group
+	}
+	return nil
+}
+
+func (x *GroupWithScore) GetScore() float32 {
+	if x != nil {
+		return x.Score
+	}
+	return 0
+}
+
 type CreateFormRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // UUID as string
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Parameters    *Parameters            `protobuf:"bytes,2,opt,name=parameters,proto3" json:"parameters,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -572,7 +622,7 @@ type CreateFormRequest struct {
 
 func (x *CreateFormRequest) Reset() {
 	*x = CreateFormRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[5]
+	mi := &file_matcher_matcher_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -584,7 +634,7 @@ func (x *CreateFormRequest) String() string {
 func (*CreateFormRequest) ProtoMessage() {}
 
 func (x *CreateFormRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[5]
+	mi := &file_matcher_matcher_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -597,7 +647,7 @@ func (x *CreateFormRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateFormRequest.ProtoReflect.Descriptor instead.
 func (*CreateFormRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{5}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CreateFormRequest) GetUserId() string {
@@ -616,14 +666,14 @@ func (x *CreateFormRequest) GetParameters() *Parameters {
 
 type GetFormByUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // UUID as string
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetFormByUserRequest) Reset() {
 	*x = GetFormByUserRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[6]
+	mi := &file_matcher_matcher_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -635,7 +685,7 @@ func (x *GetFormByUserRequest) String() string {
 func (*GetFormByUserRequest) ProtoMessage() {}
 
 func (x *GetFormByUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[6]
+	mi := &file_matcher_matcher_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -648,7 +698,7 @@ func (x *GetFormByUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetFormByUserRequest.ProtoReflect.Descriptor instead.
 func (*GetFormByUserRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{6}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetFormByUserRequest) GetUserId() string {
@@ -660,7 +710,7 @@ func (x *GetFormByUserRequest) GetUserId() string {
 
 type UpdateFormRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // UUID as string
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Parameters    *Parameters            `protobuf:"bytes,2,opt,name=parameters,proto3" json:"parameters,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -668,7 +718,7 @@ type UpdateFormRequest struct {
 
 func (x *UpdateFormRequest) Reset() {
 	*x = UpdateFormRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[7]
+	mi := &file_matcher_matcher_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -680,7 +730,7 @@ func (x *UpdateFormRequest) String() string {
 func (*UpdateFormRequest) ProtoMessage() {}
 
 func (x *UpdateFormRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[7]
+	mi := &file_matcher_matcher_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -693,7 +743,7 @@ func (x *UpdateFormRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateFormRequest.ProtoReflect.Descriptor instead.
 func (*UpdateFormRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{7}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *UpdateFormRequest) GetUserId() string {
@@ -712,14 +762,14 @@ func (x *UpdateFormRequest) GetParameters() *Parameters {
 
 type DeleteFormRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // UUID as string
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteFormRequest) Reset() {
 	*x = DeleteFormRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[8]
+	mi := &file_matcher_matcher_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -731,7 +781,7 @@ func (x *DeleteFormRequest) String() string {
 func (*DeleteFormRequest) ProtoMessage() {}
 
 func (x *DeleteFormRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[8]
+	mi := &file_matcher_matcher_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -744,7 +794,7 @@ func (x *DeleteFormRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteFormRequest.ProtoReflect.Descriptor instead.
 func (*DeleteFormRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{8}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DeleteFormRequest) GetUserId() string {
@@ -756,14 +806,14 @@ func (x *DeleteFormRequest) GetUserId() string {
 
 type GetGroupRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	GroupId       string                 `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"` // UUID as string
+	GroupId       string                 `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetGroupRequest) Reset() {
 	*x = GetGroupRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[9]
+	mi := &file_matcher_matcher_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -775,7 +825,7 @@ func (x *GetGroupRequest) String() string {
 func (*GetGroupRequest) ProtoMessage() {}
 
 func (x *GetGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[9]
+	mi := &file_matcher_matcher_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -788,7 +838,7 @@ func (x *GetGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetGroupRequest.ProtoReflect.Descriptor instead.
 func (*GetGroupRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{9}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GetGroupRequest) GetGroupId() string {
@@ -800,14 +850,14 @@ func (x *GetGroupRequest) GetGroupId() string {
 
 type DeleteGroupRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	OwnerId       string                 `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"` // UUID as string
+	OwnerId       string                 `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteGroupRequest) Reset() {
 	*x = DeleteGroupRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[10]
+	mi := &file_matcher_matcher_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -819,7 +869,7 @@ func (x *DeleteGroupRequest) String() string {
 func (*DeleteGroupRequest) ProtoMessage() {}
 
 func (x *DeleteGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[10]
+	mi := &file_matcher_matcher_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -832,7 +882,7 @@ func (x *DeleteGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteGroupRequest.ProtoReflect.Descriptor instead.
 func (*DeleteGroupRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{10}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *DeleteGroupRequest) GetOwnerId() string {
@@ -844,14 +894,14 @@ func (x *DeleteGroupRequest) GetOwnerId() string {
 
 type ListGroupMembersRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	GroupId       string                 `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"` // UUID as string
+	GroupId       string                 `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ListGroupMembersRequest) Reset() {
 	*x = ListGroupMembersRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[11]
+	mi := &file_matcher_matcher_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -863,7 +913,7 @@ func (x *ListGroupMembersRequest) String() string {
 func (*ListGroupMembersRequest) ProtoMessage() {}
 
 func (x *ListGroupMembersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[11]
+	mi := &file_matcher_matcher_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -876,7 +926,7 @@ func (x *ListGroupMembersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListGroupMembersRequest.ProtoReflect.Descriptor instead.
 func (*ListGroupMembersRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{11}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *ListGroupMembersRequest) GetGroupId() string {
@@ -895,7 +945,7 @@ type ListGroupMembersResponse struct {
 
 func (x *ListGroupMembersResponse) Reset() {
 	*x = ListGroupMembersResponse{}
-	mi := &file_matcher_matcher_proto_msgTypes[12]
+	mi := &file_matcher_matcher_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -907,7 +957,7 @@ func (x *ListGroupMembersResponse) String() string {
 func (*ListGroupMembersResponse) ProtoMessage() {}
 
 func (x *ListGroupMembersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[12]
+	mi := &file_matcher_matcher_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -920,7 +970,7 @@ func (x *ListGroupMembersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListGroupMembersResponse.ProtoReflect.Descriptor instead.
 func (*ListGroupMembersResponse) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{12}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *ListGroupMembersResponse) GetMembers() []*Form {
@@ -932,14 +982,14 @@ func (x *ListGroupMembersResponse) GetMembers() []*Form {
 
 type FindGroupsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // UUID as string
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *FindGroupsRequest) Reset() {
 	*x = FindGroupsRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[13]
+	mi := &file_matcher_matcher_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -951,7 +1001,7 @@ func (x *FindGroupsRequest) String() string {
 func (*FindGroupsRequest) ProtoMessage() {}
 
 func (x *FindGroupsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[13]
+	mi := &file_matcher_matcher_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -964,7 +1014,7 @@ func (x *FindGroupsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindGroupsRequest.ProtoReflect.Descriptor instead.
 func (*FindGroupsRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{13}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *FindGroupsRequest) GetUserId() string {
@@ -976,14 +1026,14 @@ func (x *FindGroupsRequest) GetUserId() string {
 
 type FindGroupsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Groups        []*Group               `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
+	Groups        []*GroupWithScore      `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *FindGroupsResponse) Reset() {
 	*x = FindGroupsResponse{}
-	mi := &file_matcher_matcher_proto_msgTypes[14]
+	mi := &file_matcher_matcher_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -995,7 +1045,7 @@ func (x *FindGroupsResponse) String() string {
 func (*FindGroupsResponse) ProtoMessage() {}
 
 func (x *FindGroupsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[14]
+	mi := &file_matcher_matcher_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1008,10 +1058,10 @@ func (x *FindGroupsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindGroupsResponse.ProtoReflect.Descriptor instead.
 func (*FindGroupsResponse) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{14}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{15}
 }
 
-func (x *FindGroupsResponse) GetGroups() []*Group {
+func (x *FindGroupsResponse) GetGroups() []*GroupWithScore {
 	if x != nil {
 		return x.Groups
 	}
@@ -1020,15 +1070,15 @@ func (x *FindGroupsResponse) GetGroups() []*Group {
 
 type SendJoinRequestRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`    // UUID as string
-	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"` // UUID as string
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SendJoinRequestRequest) Reset() {
 	*x = SendJoinRequestRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[15]
+	mi := &file_matcher_matcher_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1040,7 +1090,7 @@ func (x *SendJoinRequestRequest) String() string {
 func (*SendJoinRequestRequest) ProtoMessage() {}
 
 func (x *SendJoinRequestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[15]
+	mi := &file_matcher_matcher_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1053,7 +1103,7 @@ func (x *SendJoinRequestRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendJoinRequestRequest.ProtoReflect.Descriptor instead.
 func (*SendJoinRequestRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{15}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *SendJoinRequestRequest) GetUserId() string {
@@ -1070,17 +1120,61 @@ func (x *SendJoinRequestRequest) GetGroupId() string {
 	return ""
 }
 
+type SendJoinRequestResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"` // UUID создаваемого запроса на вступление
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SendJoinRequestResponse) Reset() {
+	*x = SendJoinRequestResponse{}
+	mi := &file_matcher_matcher_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SendJoinRequestResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendJoinRequestResponse) ProtoMessage() {}
+
+func (x *SendJoinRequestResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_matcher_matcher_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendJoinRequestResponse.ProtoReflect.Descriptor instead.
+func (*SendJoinRequestResponse) Descriptor() ([]byte, []int) {
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *SendJoinRequestResponse) GetRequestId() string {
+	if x != nil {
+		return x.RequestId
+	}
+	return ""
+}
+
 type AcceptJoinRequestRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	OwnerId       string                 `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`       // UUID as string
-	RequestId     string                 `protobuf:"bytes,2,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"` // UUID as string
+	OwnerId       string                 `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	RequestId     string                 `protobuf:"bytes,2,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *AcceptJoinRequestRequest) Reset() {
 	*x = AcceptJoinRequestRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[16]
+	mi := &file_matcher_matcher_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1092,7 +1186,7 @@ func (x *AcceptJoinRequestRequest) String() string {
 func (*AcceptJoinRequestRequest) ProtoMessage() {}
 
 func (x *AcceptJoinRequestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[16]
+	mi := &file_matcher_matcher_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1105,7 +1199,7 @@ func (x *AcceptJoinRequestRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AcceptJoinRequestRequest.ProtoReflect.Descriptor instead.
 func (*AcceptJoinRequestRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{16}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *AcceptJoinRequestRequest) GetOwnerId() string {
@@ -1124,15 +1218,15 @@ func (x *AcceptJoinRequestRequest) GetRequestId() string {
 
 type RejectJoinRequestRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	OwnerId       string                 `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`       // UUID as string
-	RequestId     string                 `protobuf:"bytes,2,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"` // UUID as string
+	OwnerId       string                 `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	RequestId     string                 `protobuf:"bytes,2,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *RejectJoinRequestRequest) Reset() {
 	*x = RejectJoinRequestRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[17]
+	mi := &file_matcher_matcher_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1144,7 +1238,7 @@ func (x *RejectJoinRequestRequest) String() string {
 func (*RejectJoinRequestRequest) ProtoMessage() {}
 
 func (x *RejectJoinRequestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[17]
+	mi := &file_matcher_matcher_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1157,7 +1251,7 @@ func (x *RejectJoinRequestRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RejectJoinRequestRequest.ProtoReflect.Descriptor instead.
 func (*RejectJoinRequestRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{17}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *RejectJoinRequestRequest) GetOwnerId() string {
@@ -1227,7 +1321,10 @@ const file_matcher_matcher_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"a\n" +
+	"updated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"L\n" +
+	"\x0eGroupWithScore\x12$\n" +
+	"\x05group\x18\x01 \x01(\v2\x0e.matcher.GroupR\x05group\x12\x14\n" +
+	"\x05score\x18\x02 \x01(\x02R\x05score\"a\n" +
 	"\x11CreateFormRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x123\n" +
 	"\n" +
@@ -1251,12 +1348,15 @@ const file_matcher_matcher_proto_rawDesc = "" +
 	"\x18ListGroupMembersResponse\x12'\n" +
 	"\amembers\x18\x01 \x03(\v2\r.matcher.FormR\amembers\",\n" +
 	"\x11FindGroupsRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\"<\n" +
-	"\x12FindGroupsResponse\x12&\n" +
-	"\x06groups\x18\x01 \x03(\v2\x0e.matcher.GroupR\x06groups\"L\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"E\n" +
+	"\x12FindGroupsResponse\x12/\n" +
+	"\x06groups\x18\x01 \x03(\v2\x17.matcher.GroupWithScoreR\x06groups\"L\n" +
 	"\x16SendJoinRequestRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x19\n" +
-	"\bgroup_id\x18\x02 \x01(\tR\agroupId\"T\n" +
+	"\bgroup_id\x18\x02 \x01(\tR\agroupId\"8\n" +
+	"\x17SendJoinRequestResponse\x12\x1d\n" +
+	"\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\"T\n" +
 	"\x18AcceptJoinRequestRequest\x12\x19\n" +
 	"\bowner_id\x18\x01 \x01(\tR\aownerId\x12\x1d\n" +
 	"\n" +
@@ -1289,9 +1389,9 @@ const file_matcher_matcher_proto_rawDesc = "" +
 	"\x10ListGroupMembers\x12 .matcher.ListGroupMembersRequest\x1a!.matcher.ListGroupMembersResponse2Y\n" +
 	"\x10FindGroupService\x12E\n" +
 	"\n" +
-	"FindGroups\x12\x1a.matcher.FindGroupsRequest\x1a\x1b.matcher.FindGroupsResponse2\xfa\x01\n" +
-	"\fGroupService\x12J\n" +
-	"\x0fSendJoinRequest\x12\x1f.matcher.SendJoinRequestRequest\x1a\x16.google.protobuf.Empty\x12N\n" +
+	"FindGroups\x12\x1a.matcher.FindGroupsRequest\x1a\x1b.matcher.FindGroupsResponse2\x84\x02\n" +
+	"\fGroupService\x12T\n" +
+	"\x0fSendJoinRequest\x12\x1f.matcher.SendJoinRequestRequest\x1a .matcher.SendJoinRequestResponse\x12N\n" +
 	"\x11AcceptJoinRequest\x12!.matcher.AcceptJoinRequestRequest\x1a\x16.google.protobuf.Empty\x12N\n" +
 	"\x11RejectJoinRequest\x12!.matcher.RejectJoinRequestRequest\x1a\x16.google.protobuf.EmptyB\x16Z\x14matcher.v1;matcherv1b\x06proto3"
 
@@ -1308,7 +1408,7 @@ func file_matcher_matcher_proto_rawDescGZIP() []byte {
 }
 
 var file_matcher_matcher_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_matcher_matcher_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_matcher_matcher_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_matcher_matcher_proto_goTypes = []any{
 	(Sex)(0),                         // 0: matcher.Sex
 	(UserType)(0),                    // 1: matcher.UserType
@@ -1317,64 +1417,67 @@ var file_matcher_matcher_proto_goTypes = []any{
 	(*Form)(nil),                     // 4: matcher.Form
 	(*GroupRequest)(nil),             // 5: matcher.GroupRequest
 	(*Group)(nil),                    // 6: matcher.Group
-	(*CreateFormRequest)(nil),        // 7: matcher.CreateFormRequest
-	(*GetFormByUserRequest)(nil),     // 8: matcher.GetFormByUserRequest
-	(*UpdateFormRequest)(nil),        // 9: matcher.UpdateFormRequest
-	(*DeleteFormRequest)(nil),        // 10: matcher.DeleteFormRequest
-	(*GetGroupRequest)(nil),          // 11: matcher.GetGroupRequest
-	(*DeleteGroupRequest)(nil),       // 12: matcher.DeleteGroupRequest
-	(*ListGroupMembersRequest)(nil),  // 13: matcher.ListGroupMembersRequest
-	(*ListGroupMembersResponse)(nil), // 14: matcher.ListGroupMembersResponse
-	(*FindGroupsRequest)(nil),        // 15: matcher.FindGroupsRequest
-	(*FindGroupsResponse)(nil),       // 16: matcher.FindGroupsResponse
-	(*SendJoinRequestRequest)(nil),   // 17: matcher.SendJoinRequestRequest
-	(*AcceptJoinRequestRequest)(nil), // 18: matcher.AcceptJoinRequestRequest
-	(*RejectJoinRequestRequest)(nil), // 19: matcher.RejectJoinRequestRequest
-	(*timestamppb.Timestamp)(nil),    // 20: google.protobuf.Timestamp
-	(*emptypb.Empty)(nil),            // 21: google.protobuf.Empty
+	(*GroupWithScore)(nil),           // 7: matcher.GroupWithScore
+	(*CreateFormRequest)(nil),        // 8: matcher.CreateFormRequest
+	(*GetFormByUserRequest)(nil),     // 9: matcher.GetFormByUserRequest
+	(*UpdateFormRequest)(nil),        // 10: matcher.UpdateFormRequest
+	(*DeleteFormRequest)(nil),        // 11: matcher.DeleteFormRequest
+	(*GetGroupRequest)(nil),          // 12: matcher.GetGroupRequest
+	(*DeleteGroupRequest)(nil),       // 13: matcher.DeleteGroupRequest
+	(*ListGroupMembersRequest)(nil),  // 14: matcher.ListGroupMembersRequest
+	(*ListGroupMembersResponse)(nil), // 15: matcher.ListGroupMembersResponse
+	(*FindGroupsRequest)(nil),        // 16: matcher.FindGroupsRequest
+	(*FindGroupsResponse)(nil),       // 17: matcher.FindGroupsResponse
+	(*SendJoinRequestRequest)(nil),   // 18: matcher.SendJoinRequestRequest
+	(*SendJoinRequestResponse)(nil),  // 19: matcher.SendJoinRequestResponse
+	(*AcceptJoinRequestRequest)(nil), // 20: matcher.AcceptJoinRequestRequest
+	(*RejectJoinRequestRequest)(nil), // 21: matcher.RejectJoinRequestRequest
+	(*timestamppb.Timestamp)(nil),    // 22: google.protobuf.Timestamp
+	(*emptypb.Empty)(nil),            // 23: google.protobuf.Empty
 }
 var file_matcher_matcher_proto_depIdxs = []int32{
 	2,  // 0: matcher.Parameters.geo:type_name -> matcher.Point
 	0,  // 1: matcher.Parameters.sex:type_name -> matcher.Sex
 	1,  // 2: matcher.Parameters.user_type:type_name -> matcher.UserType
 	3,  // 3: matcher.Form.parameters:type_name -> matcher.Parameters
-	20, // 4: matcher.Form.created_at:type_name -> google.protobuf.Timestamp
-	20, // 5: matcher.Form.updated_at:type_name -> google.protobuf.Timestamp
-	20, // 6: matcher.GroupRequest.created_at:type_name -> google.protobuf.Timestamp
+	22, // 4: matcher.Form.created_at:type_name -> google.protobuf.Timestamp
+	22, // 5: matcher.Form.updated_at:type_name -> google.protobuf.Timestamp
+	22, // 6: matcher.GroupRequest.created_at:type_name -> google.protobuf.Timestamp
 	3,  // 7: matcher.Group.parameters:type_name -> matcher.Parameters
-	20, // 8: matcher.Group.created_at:type_name -> google.protobuf.Timestamp
-	20, // 9: matcher.Group.updated_at:type_name -> google.protobuf.Timestamp
-	3,  // 10: matcher.CreateFormRequest.parameters:type_name -> matcher.Parameters
-	3,  // 11: matcher.UpdateFormRequest.parameters:type_name -> matcher.Parameters
-	4,  // 12: matcher.ListGroupMembersResponse.members:type_name -> matcher.Form
-	6,  // 13: matcher.FindGroupsResponse.groups:type_name -> matcher.Group
-	7,  // 14: matcher.FormService.CreateForm:input_type -> matcher.CreateFormRequest
-	8,  // 15: matcher.FormService.GetFormByUser:input_type -> matcher.GetFormByUserRequest
-	9,  // 16: matcher.FormService.UpdateForm:input_type -> matcher.UpdateFormRequest
-	10, // 17: matcher.FormService.DeleteForm:input_type -> matcher.DeleteFormRequest
-	11, // 18: matcher.GroupQueryService.GetGroup:input_type -> matcher.GetGroupRequest
-	12, // 19: matcher.GroupQueryService.DeleteGroup:input_type -> matcher.DeleteGroupRequest
-	13, // 20: matcher.GroupQueryService.ListGroupMembers:input_type -> matcher.ListGroupMembersRequest
-	15, // 21: matcher.FindGroupService.FindGroups:input_type -> matcher.FindGroupsRequest
-	17, // 22: matcher.GroupService.SendJoinRequest:input_type -> matcher.SendJoinRequestRequest
-	18, // 23: matcher.GroupService.AcceptJoinRequest:input_type -> matcher.AcceptJoinRequestRequest
-	19, // 24: matcher.GroupService.RejectJoinRequest:input_type -> matcher.RejectJoinRequestRequest
-	21, // 25: matcher.FormService.CreateForm:output_type -> google.protobuf.Empty
-	4,  // 26: matcher.FormService.GetFormByUser:output_type -> matcher.Form
-	21, // 27: matcher.FormService.UpdateForm:output_type -> google.protobuf.Empty
-	21, // 28: matcher.FormService.DeleteForm:output_type -> google.protobuf.Empty
-	6,  // 29: matcher.GroupQueryService.GetGroup:output_type -> matcher.Group
-	21, // 30: matcher.GroupQueryService.DeleteGroup:output_type -> google.protobuf.Empty
-	14, // 31: matcher.GroupQueryService.ListGroupMembers:output_type -> matcher.ListGroupMembersResponse
-	16, // 32: matcher.FindGroupService.FindGroups:output_type -> matcher.FindGroupsResponse
-	21, // 33: matcher.GroupService.SendJoinRequest:output_type -> google.protobuf.Empty
-	21, // 34: matcher.GroupService.AcceptJoinRequest:output_type -> google.protobuf.Empty
-	21, // 35: matcher.GroupService.RejectJoinRequest:output_type -> google.protobuf.Empty
-	25, // [25:36] is the sub-list for method output_type
-	14, // [14:25] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	22, // 8: matcher.Group.created_at:type_name -> google.protobuf.Timestamp
+	22, // 9: matcher.Group.updated_at:type_name -> google.protobuf.Timestamp
+	6,  // 10: matcher.GroupWithScore.group:type_name -> matcher.Group
+	3,  // 11: matcher.CreateFormRequest.parameters:type_name -> matcher.Parameters
+	3,  // 12: matcher.UpdateFormRequest.parameters:type_name -> matcher.Parameters
+	4,  // 13: matcher.ListGroupMembersResponse.members:type_name -> matcher.Form
+	7,  // 14: matcher.FindGroupsResponse.groups:type_name -> matcher.GroupWithScore
+	8,  // 15: matcher.FormService.CreateForm:input_type -> matcher.CreateFormRequest
+	9,  // 16: matcher.FormService.GetFormByUser:input_type -> matcher.GetFormByUserRequest
+	10, // 17: matcher.FormService.UpdateForm:input_type -> matcher.UpdateFormRequest
+	11, // 18: matcher.FormService.DeleteForm:input_type -> matcher.DeleteFormRequest
+	12, // 19: matcher.GroupQueryService.GetGroup:input_type -> matcher.GetGroupRequest
+	13, // 20: matcher.GroupQueryService.DeleteGroup:input_type -> matcher.DeleteGroupRequest
+	14, // 21: matcher.GroupQueryService.ListGroupMembers:input_type -> matcher.ListGroupMembersRequest
+	16, // 22: matcher.FindGroupService.FindGroups:input_type -> matcher.FindGroupsRequest
+	18, // 23: matcher.GroupService.SendJoinRequest:input_type -> matcher.SendJoinRequestRequest
+	20, // 24: matcher.GroupService.AcceptJoinRequest:input_type -> matcher.AcceptJoinRequestRequest
+	21, // 25: matcher.GroupService.RejectJoinRequest:input_type -> matcher.RejectJoinRequestRequest
+	23, // 26: matcher.FormService.CreateForm:output_type -> google.protobuf.Empty
+	4,  // 27: matcher.FormService.GetFormByUser:output_type -> matcher.Form
+	23, // 28: matcher.FormService.UpdateForm:output_type -> google.protobuf.Empty
+	23, // 29: matcher.FormService.DeleteForm:output_type -> google.protobuf.Empty
+	6,  // 30: matcher.GroupQueryService.GetGroup:output_type -> matcher.Group
+	23, // 31: matcher.GroupQueryService.DeleteGroup:output_type -> google.protobuf.Empty
+	15, // 32: matcher.GroupQueryService.ListGroupMembers:output_type -> matcher.ListGroupMembersResponse
+	17, // 33: matcher.FindGroupService.FindGroups:output_type -> matcher.FindGroupsResponse
+	19, // 34: matcher.GroupService.SendJoinRequest:output_type -> matcher.SendJoinRequestResponse
+	23, // 35: matcher.GroupService.AcceptJoinRequest:output_type -> google.protobuf.Empty
+	23, // 36: matcher.GroupService.RejectJoinRequest:output_type -> google.protobuf.Empty
+	26, // [26:37] is the sub-list for method output_type
+	15, // [15:26] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_matcher_matcher_proto_init() }
@@ -1388,7 +1491,7 @@ func file_matcher_matcher_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_matcher_matcher_proto_rawDesc), len(file_matcher_matcher_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   18,
+			NumMessages:   20,
 			NumExtensions: 0,
 			NumServices:   4,
 		},

@@ -30,7 +30,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
-// FormService: CRUD for user forms
+// Form Service
 type FormServiceClient interface {
 	CreateForm(ctx context.Context, in *CreateFormRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetFormByUser(ctx context.Context, in *GetFormByUserRequest, opts ...grpc.CallOption) (*Form, error)
@@ -90,7 +90,7 @@ func (c *formServiceClient) DeleteForm(ctx context.Context, in *DeleteFormReques
 // All implementations must embed UnimplementedFormServiceServer
 // for forward compatibility.
 //
-// FormService: CRUD for user forms
+// Form Service
 type FormServiceServer interface {
 	CreateForm(context.Context, *CreateFormRequest) (*emptypb.Empty, error)
 	GetFormByUser(context.Context, *GetFormByUserRequest) (*Form, error)
@@ -249,7 +249,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
-// GroupQuery: Basic group operations
+// GroupQuery Service
 type GroupQueryServiceClient interface {
 	GetGroup(ctx context.Context, in *GetGroupRequest, opts ...grpc.CallOption) (*Group, error)
 	DeleteGroup(ctx context.Context, in *DeleteGroupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -298,7 +298,7 @@ func (c *groupQueryServiceClient) ListGroupMembers(ctx context.Context, in *List
 // All implementations must embed UnimplementedGroupQueryServiceServer
 // for forward compatibility.
 //
-// GroupQuery: Basic group operations
+// GroupQuery Service
 type GroupQueryServiceServer interface {
 	GetGroup(context.Context, *GetGroupRequest) (*Group, error)
 	DeleteGroup(context.Context, *DeleteGroupRequest) (*emptypb.Empty, error)
@@ -429,7 +429,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
-// FindGroupService: Recommendations
+// FindGroup Service
 type FindGroupServiceClient interface {
 	FindGroups(ctx context.Context, in *FindGroupsRequest, opts ...grpc.CallOption) (*FindGroupsResponse, error)
 }
@@ -456,7 +456,7 @@ func (c *findGroupServiceClient) FindGroups(ctx context.Context, in *FindGroupsR
 // All implementations must embed UnimplementedFindGroupServiceServer
 // for forward compatibility.
 //
-// FindGroupService: Recommendations
+// FindGroup Service
 type FindGroupServiceServer interface {
 	FindGroups(context.Context, *FindGroupsRequest) (*FindGroupsResponse, error)
 	mustEmbedUnimplementedFindGroupServiceServer()
@@ -537,9 +537,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
-// GroupService: Join requests and management
+// Group Service
 type GroupServiceClient interface {
-	SendJoinRequest(ctx context.Context, in *SendJoinRequestRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	SendJoinRequest(ctx context.Context, in *SendJoinRequestRequest, opts ...grpc.CallOption) (*SendJoinRequestResponse, error)
 	AcceptJoinRequest(ctx context.Context, in *AcceptJoinRequestRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	RejectJoinRequest(ctx context.Context, in *RejectJoinRequestRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
@@ -552,9 +552,9 @@ func NewGroupServiceClient(cc grpc.ClientConnInterface) GroupServiceClient {
 	return &groupServiceClient{cc}
 }
 
-func (c *groupServiceClient) SendJoinRequest(ctx context.Context, in *SendJoinRequestRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *groupServiceClient) SendJoinRequest(ctx context.Context, in *SendJoinRequestRequest, opts ...grpc.CallOption) (*SendJoinRequestResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(emptypb.Empty)
+	out := new(SendJoinRequestResponse)
 	err := c.cc.Invoke(ctx, GroupService_SendJoinRequest_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -586,9 +586,9 @@ func (c *groupServiceClient) RejectJoinRequest(ctx context.Context, in *RejectJo
 // All implementations must embed UnimplementedGroupServiceServer
 // for forward compatibility.
 //
-// GroupService: Join requests and management
+// Group Service
 type GroupServiceServer interface {
-	SendJoinRequest(context.Context, *SendJoinRequestRequest) (*emptypb.Empty, error)
+	SendJoinRequest(context.Context, *SendJoinRequestRequest) (*SendJoinRequestResponse, error)
 	AcceptJoinRequest(context.Context, *AcceptJoinRequestRequest) (*emptypb.Empty, error)
 	RejectJoinRequest(context.Context, *RejectJoinRequestRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedGroupServiceServer()
@@ -601,7 +601,7 @@ type GroupServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGroupServiceServer struct{}
 
-func (UnimplementedGroupServiceServer) SendJoinRequest(context.Context, *SendJoinRequestRequest) (*emptypb.Empty, error) {
+func (UnimplementedGroupServiceServer) SendJoinRequest(context.Context, *SendJoinRequestRequest) (*SendJoinRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendJoinRequest not implemented")
 }
 func (UnimplementedGroupServiceServer) AcceptJoinRequest(context.Context, *AcceptJoinRequestRequest) (*emptypb.Empty, error) {

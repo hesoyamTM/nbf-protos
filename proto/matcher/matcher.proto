@@ -7,7 +7,6 @@ import "google/protobuf/empty.proto";
 
 option go_package = "matcher.v1;matcherv1";
 
-// Enums based on entity definitions
 enum Sex {
   SEX_UNSPECIFIED = 0;
   SEX_MALE = 1;
@@ -21,7 +20,6 @@ enum UserType {
   USER_TYPE_TOURIST = 3;
 }
 
-// Entity messages
 message Point {
   double lat = 1;
   double lon = 2;
@@ -45,7 +43,7 @@ message Parameters {
 }
 
 message Form {
-  string id = 1;  // UUID as string
+  string id = 1;
   string user_id = 2;
   Parameters parameters = 3;
   bool active = 4;
@@ -54,24 +52,27 @@ message Form {
 }
 
 message GroupRequest {
-  string id = 1;  // UUID as string
-  string group_id = 2;  // UUID as string
-  string user_id = 3;  // UUID as string
+  string id = 1;
+  string group_id = 2;
+  string user_id = 3;
   google.protobuf.Timestamp created_at = 4;
 }
 
 message Group {
-  string id = 1;  // UUID as string
-  string owner_id = 2;  // UUID as string
+  string id = 1;
+  string owner_id = 2;
   Parameters parameters = 3;
   int32 max_users = 4;
   google.protobuf.Timestamp created_at = 5;
   google.protobuf.Timestamp updated_at = 6;
 }
 
-// Use case services and requests/responses
+message GroupWithScore {
+  Group group = 1;
+  float score = 2; 
+}
 
-// FormService: CRUD for user forms
+// Form Service
 service FormService {
   rpc CreateForm(CreateFormRequest) returns (google.protobuf.Empty);
   rpc GetFormByUser(GetFormByUserRequest) returns (Form);
@@ -80,24 +81,24 @@ service FormService {
 }
 
 message CreateFormRequest {
-  string user_id = 1;  // UUID as string
+  string user_id = 1;
   Parameters parameters = 2;
 }
 
 message GetFormByUserRequest {
-  string user_id = 1;  // UUID as string
+  string user_id = 1;
 }
 
 message UpdateFormRequest {
-  string user_id = 1;  // UUID as string
+  string user_id = 1;
   Parameters parameters = 2;
 }
 
 message DeleteFormRequest {
-  string user_id = 1;  // UUID as string
+  string user_id = 1;
 }
 
-// GroupQuery: Basic group operations
+// GroupQuery Service
 service GroupQueryService {
   rpc GetGroup(GetGroupRequest) returns (Group);
   rpc DeleteGroup(DeleteGroupRequest) returns (google.protobuf.Empty);
@@ -105,52 +106,56 @@ service GroupQueryService {
 }
 
 message GetGroupRequest {
-  string group_id = 1;  // UUID as string
+  string group_id = 1;
 }
 
 message DeleteGroupRequest {
-  string owner_id = 1;  // UUID as string
+  string owner_id = 1;
 }
 
 message ListGroupMembersRequest {
-  string group_id = 1;  // UUID as string
+  string group_id = 1;
 }
 
 message ListGroupMembersResponse {
   repeated Form members = 1;
 }
 
-// FindGroupService: Recommendations
+// FindGroup Service
 service FindGroupService {
   rpc FindGroups(FindGroupsRequest) returns (FindGroupsResponse);
 }
 
 message FindGroupsRequest {
-  string user_id = 1;  // UUID as string
+  string user_id = 1;
 }
 
 message FindGroupsResponse {
-  repeated Group groups = 1;
+  repeated GroupWithScore groups = 1;
 }
 
-// GroupService: Join requests and management
+// Group Service
 service GroupService {
-  rpc SendJoinRequest(SendJoinRequestRequest) returns (google.protobuf.Empty);
+  rpc SendJoinRequest(SendJoinRequestRequest) returns (SendJoinRequestResponse);
   rpc AcceptJoinRequest(AcceptJoinRequestRequest) returns (google.protobuf.Empty);
   rpc RejectJoinRequest(RejectJoinRequestRequest) returns (google.protobuf.Empty);
 }
 
 message SendJoinRequestRequest {
-  string user_id = 1;  // UUID as string
-  string group_id = 2;  // UUID as string
+  string user_id = 1;
+  string group_id = 2;
+}
+
+message SendJoinRequestResponse {
+  string request_id = 1; // UUID создаваемого запроса на вступление
 }
 
 message AcceptJoinRequestRequest {
-  string owner_id = 1;  // UUID as string
-  string request_id = 2;  // UUID as string
+  string owner_id = 1;
+  string request_id = 2;
 }
 
 message RejectJoinRequestRequest {
-  string owner_id = 1;  // UUID as string
-  string request_id = 2;  // UUID as string
+  string owner_id = 1;
+  string request_id = 2;
 }
