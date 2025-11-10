@@ -528,6 +528,7 @@ var FindGroupService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
+	GroupService_GetReqeusts_FullMethodName       = "/matcher.GroupService/GetReqeusts"
 	GroupService_SendJoinRequest_FullMethodName   = "/matcher.GroupService/SendJoinRequest"
 	GroupService_AcceptJoinRequest_FullMethodName = "/matcher.GroupService/AcceptJoinRequest"
 	GroupService_RejectJoinRequest_FullMethodName = "/matcher.GroupService/RejectJoinRequest"
@@ -539,6 +540,7 @@ const (
 //
 // Group Service
 type GroupServiceClient interface {
+	GetReqeusts(ctx context.Context, in *GetReqeustsRequest, opts ...grpc.CallOption) (*GetReqeustsResponse, error)
 	SendJoinRequest(ctx context.Context, in *SendJoinRequestRequest, opts ...grpc.CallOption) (*SendJoinRequestResponse, error)
 	AcceptJoinRequest(ctx context.Context, in *AcceptJoinRequestRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	RejectJoinRequest(ctx context.Context, in *RejectJoinRequestRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -550,6 +552,16 @@ type groupServiceClient struct {
 
 func NewGroupServiceClient(cc grpc.ClientConnInterface) GroupServiceClient {
 	return &groupServiceClient{cc}
+}
+
+func (c *groupServiceClient) GetReqeusts(ctx context.Context, in *GetReqeustsRequest, opts ...grpc.CallOption) (*GetReqeustsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetReqeustsResponse)
+	err := c.cc.Invoke(ctx, GroupService_GetReqeusts_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *groupServiceClient) SendJoinRequest(ctx context.Context, in *SendJoinRequestRequest, opts ...grpc.CallOption) (*SendJoinRequestResponse, error) {
@@ -588,6 +600,7 @@ func (c *groupServiceClient) RejectJoinRequest(ctx context.Context, in *RejectJo
 //
 // Group Service
 type GroupServiceServer interface {
+	GetReqeusts(context.Context, *GetReqeustsRequest) (*GetReqeustsResponse, error)
 	SendJoinRequest(context.Context, *SendJoinRequestRequest) (*SendJoinRequestResponse, error)
 	AcceptJoinRequest(context.Context, *AcceptJoinRequestRequest) (*emptypb.Empty, error)
 	RejectJoinRequest(context.Context, *RejectJoinRequestRequest) (*emptypb.Empty, error)
@@ -601,6 +614,9 @@ type GroupServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGroupServiceServer struct{}
 
+func (UnimplementedGroupServiceServer) GetReqeusts(context.Context, *GetReqeustsRequest) (*GetReqeustsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReqeusts not implemented")
+}
 func (UnimplementedGroupServiceServer) SendJoinRequest(context.Context, *SendJoinRequestRequest) (*SendJoinRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendJoinRequest not implemented")
 }
@@ -629,6 +645,24 @@ func RegisterGroupServiceServer(s grpc.ServiceRegistrar, srv GroupServiceServer)
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&GroupService_ServiceDesc, srv)
+}
+
+func _GroupService_GetReqeusts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReqeustsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GroupServiceServer).GetReqeusts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GroupService_GetReqeusts_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GroupServiceServer).GetReqeusts(ctx, req.(*GetReqeustsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _GroupService_SendJoinRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -692,6 +726,10 @@ var GroupService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "matcher.GroupService",
 	HandlerType: (*GroupServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetReqeusts",
+			Handler:    _GroupService_GetReqeusts_Handler,
+		},
 		{
 			MethodName: "SendJoinRequest",
 			Handler:    _GroupService_SendJoinRequest_Handler,

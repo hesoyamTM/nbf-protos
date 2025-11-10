@@ -33,13 +33,14 @@ message Parameters {
   int32 budget = 5;
   int32 room_count = 6;
   int32 roommates_count = 7;
-  int32 age = 8;
-  bool smoking = 9;
-  bool alko = 10;
-  bool pet = 11;
-  Sex sex = 12;
-  UserType user_type = 13;
-  string description = 14;
+  int32 month = 8;
+  int32 age = 9;
+  bool smoking = 10;
+  bool alko = 11;
+  bool pet = 12;
+  Sex sex = 13;
+  UserType user_type = 14;
+  string description = 15;
 }
 
 message Form {
@@ -136,9 +137,18 @@ message FindGroupsResponse {
 
 // Group Service
 service GroupService {
+  rpc GetReqeusts(GetReqeustsRequest) returns (GetReqeustsResponse);
   rpc SendJoinRequest(SendJoinRequestRequest) returns (SendJoinRequestResponse);
   rpc AcceptJoinRequest(AcceptJoinRequestRequest) returns (google.protobuf.Empty);
   rpc RejectJoinRequest(RejectJoinRequestRequest) returns (google.protobuf.Empty);
+}
+
+message GetReqeustsRequest {
+  string group_id = 1;
+}
+
+message GetReqeustsResponse {
+  repeated GroupRequest requests = 1;
 }
 
 message SendJoinRequestRequest {
