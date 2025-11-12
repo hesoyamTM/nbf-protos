@@ -17,7 +17,13 @@ message SendMessageRequest {
 }
 
 message SendMessageResponse {
-  string user_id = 1;
+  User user = 1;
   string text = 2;
   google.protobuf.Timestamp created_at = 3;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string avatar = 3;
 }
