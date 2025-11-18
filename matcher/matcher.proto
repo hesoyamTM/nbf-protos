@@ -77,7 +77,6 @@ message GroupWithScore {
 service FormService {
   rpc CreateForm(CreateFormRequest) returns (google.protobuf.Empty);
   rpc GetFormByUser(GetFormByUserRequest) returns (Form);
-  rpc GetGroupByUser(GetGroupByUserRequest) returns (Group);
   rpc UpdateForm(UpdateFormRequest) returns (google.protobuf.Empty);
   rpc DeleteForm(DeleteFormRequest) returns (google.protobuf.Empty);
 }
@@ -106,6 +105,7 @@ message DeleteFormRequest {
 // GroupQuery Service
 service GroupQueryService {
   rpc GetGroup(GetGroupRequest) returns (Group);
+  rpc GetGroupByUser(GetGroupByUserRequest) returns (Group);
   rpc DeleteGroup(DeleteGroupRequest) returns (google.protobuf.Empty);
   rpc ListGroupMembers(ListGroupMembersRequest) returns (ListGroupMembersResponse);
 }
