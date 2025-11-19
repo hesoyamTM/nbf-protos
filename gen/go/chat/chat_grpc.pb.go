@@ -19,27 +19,31 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Chat_SendMessage_FullMethodName = "/chat.Chat/SendMessage"
+	ChatService_SendMessage_FullMethodName        = "/chat.ChatService/SendMessage"
+	ChatService_GetChatsByUser_FullMethodName     = "/chat.ChatService/GetChatsByUser"
+	ChatService_SetLastReadMessage_FullMethodName = "/chat.ChatService/SetLastReadMessage"
 )
 
-// ChatClient is the client API for Chat service.
+// ChatServiceClient is the client API for ChatService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ChatClient interface {
+type ChatServiceClient interface {
 	SendMessage(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[SendMessageRequest, SendMessageResponse], error)
+	GetChatsByUser(ctx context.Context, in *GetChatByUserRequest, opts ...grpc.CallOption) (*GetChatByUserResponse, error)
+	SetLastReadMessage(ctx context.Context, in *SetLastReadMessageRequest, opts ...grpc.CallOption) (*SetLastReadMessageResponse, error)
 }
 
-type chatClient struct {
+type chatServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewChatClient(cc grpc.ClientConnInterface) ChatClient {
-	return &chatClient{cc}
+func NewChatServiceClient(cc grpc.ClientConnInterface) ChatServiceClient {
+	return &chatServiceClient{cc}
 }
 
-func (c *chatClient) SendMessage(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[SendMessageRequest, SendMessageResponse], error) {
+func (c *chatServiceClient) SendMessage(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[SendMessageRequest, SendMessageResponse], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &Chat_ServiceDesc.Streams[0], Chat_SendMessage_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &ChatService_ServiceDesc.Streams[0], ChatService_SendMessage_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,65 +52,138 @@ func (c *chatClient) SendMessage(ctx context.Context, opts ...grpc.CallOption) (
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type Chat_SendMessageClient = grpc.BidiStreamingClient[SendMessageRequest, SendMessageResponse]
+type ChatService_SendMessageClient = grpc.BidiStreamingClient[SendMessageRequest, SendMessageResponse]
 
-// ChatServer is the server API for Chat service.
-// All implementations must embed UnimplementedChatServer
-// for forward compatibility.
-type ChatServer interface {
-	SendMessage(grpc.BidiStreamingServer[SendMessageRequest, SendMessageResponse]) error
-	mustEmbedUnimplementedChatServer()
+func (c *chatServiceClient) GetChatsByUser(ctx context.Context, in *GetChatByUserRequest, opts ...grpc.CallOption) (*GetChatByUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetChatByUserResponse)
+	err := c.cc.Invoke(ctx, ChatService_GetChatsByUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
-// UnimplementedChatServer must be embedded to have
+func (c *chatServiceClient) SetLastReadMessage(ctx context.Context, in *SetLastReadMessageRequest, opts ...grpc.CallOption) (*SetLastReadMessageResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetLastReadMessageResponse)
+	err := c.cc.Invoke(ctx, ChatService_SetLastReadMessage_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ChatServiceServer is the server API for ChatService service.
+// All implementations must embed UnimplementedChatServiceServer
+// for forward compatibility.
+type ChatServiceServer interface {
+	SendMessage(grpc.BidiStreamingServer[SendMessageRequest, SendMessageResponse]) error
+	GetChatsByUser(context.Context, *GetChatByUserRequest) (*GetChatByUserResponse, error)
+	SetLastReadMessage(context.Context, *SetLastReadMessageRequest) (*SetLastReadMessageResponse, error)
+	mustEmbedUnimplementedChatServiceServer()
+}
+
+// UnimplementedChatServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedChatServer struct{}
+type UnimplementedChatServiceServer struct{}
 
-func (UnimplementedChatServer) SendMessage(grpc.BidiStreamingServer[SendMessageRequest, SendMessageResponse]) error {
+func (UnimplementedChatServiceServer) SendMessage(grpc.BidiStreamingServer[SendMessageRequest, SendMessageResponse]) error {
 	return status.Errorf(codes.Unimplemented, "method SendMessage not implemented")
 }
-func (UnimplementedChatServer) mustEmbedUnimplementedChatServer() {}
-func (UnimplementedChatServer) testEmbeddedByValue()              {}
+func (UnimplementedChatServiceServer) GetChatsByUser(context.Context, *GetChatByUserRequest) (*GetChatByUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetChatsByUser not implemented")
+}
+func (UnimplementedChatServiceServer) SetLastReadMessage(context.Context, *SetLastReadMessageRequest) (*SetLastReadMessageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetLastReadMessage not implemented")
+}
+func (UnimplementedChatServiceServer) mustEmbedUnimplementedChatServiceServer() {}
+func (UnimplementedChatServiceServer) testEmbeddedByValue()                     {}
 
-// UnsafeChatServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ChatServer will
+// UnsafeChatServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ChatServiceServer will
 // result in compilation errors.
-type UnsafeChatServer interface {
-	mustEmbedUnimplementedChatServer()
+type UnsafeChatServiceServer interface {
+	mustEmbedUnimplementedChatServiceServer()
 }
 
-func RegisterChatServer(s grpc.ServiceRegistrar, srv ChatServer) {
-	// If the following call pancis, it indicates UnimplementedChatServer was
+func RegisterChatServiceServer(s grpc.ServiceRegistrar, srv ChatServiceServer) {
+	// If the following call pancis, it indicates UnimplementedChatServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&Chat_ServiceDesc, srv)
+	s.RegisterService(&ChatService_ServiceDesc, srv)
 }
 
-func _Chat_SendMessage_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(ChatServer).SendMessage(&grpc.GenericServerStream[SendMessageRequest, SendMessageResponse]{ServerStream: stream})
+func _ChatService_SendMessage_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ChatServiceServer).SendMessage(&grpc.GenericServerStream[SendMessageRequest, SendMessageResponse]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type Chat_SendMessageServer = grpc.BidiStreamingServer[SendMessageRequest, SendMessageResponse]
+type ChatService_SendMessageServer = grpc.BidiStreamingServer[SendMessageRequest, SendMessageResponse]
 
-// Chat_ServiceDesc is the grpc.ServiceDesc for Chat service.
+func _ChatService_GetChatsByUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetChatByUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatServiceServer).GetChatsByUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatService_GetChatsByUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatServiceServer).GetChatsByUser(ctx, req.(*GetChatByUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ChatService_SetLastReadMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetLastReadMessageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChatServiceServer).SetLastReadMessage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ChatService_SetLastReadMessage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChatServiceServer).SetLastReadMessage(ctx, req.(*SetLastReadMessageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// ChatService_ServiceDesc is the grpc.ServiceDesc for ChatService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Chat_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "chat.Chat",
-	HandlerType: (*ChatServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+var ChatService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "chat.ChatService",
+	HandlerType: (*ChatServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetChatsByUser",
+			Handler:    _ChatService_GetChatsByUser_Handler,
+		},
+		{
+			MethodName: "SetLastReadMessage",
+			Handler:    _ChatService_SetLastReadMessage_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "SendMessage",
-			Handler:       _Chat_SendMessage_Handler,
+			Handler:       _ChatService_SendMessage_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},

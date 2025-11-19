@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "chat.v1;chatv1";
 
-service Chat {
+service ChatService {
   rpc SendMessage(stream SendMessageRequest) returns (stream SendMessageResponse);
   rpc GetChatsByUser(GetChatByUserRequest) returns (GetChatByUserResponse);
   rpc SetLastReadMessage(SetLastReadMessageRequest) returns (SetLastReadMessageResponse);
@@ -19,7 +19,7 @@ message SendMessageRequest {
 }
 
 message SendMessageResponse {
-  chat_id = 1;
+  string chat_id = 1;
   User user = 2;
   string text = 3;
   google.protobuf.Timestamp created_at = 4;
