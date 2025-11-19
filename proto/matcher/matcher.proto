@@ -41,6 +41,7 @@ message Parameters {
   Sex sex = 13;
   UserType user_type = 14;
   string description = 15;
+  string address = 16;
 }
 
 message Form {
@@ -90,6 +91,9 @@ message GetFormByUserRequest {
   string user_id = 1;
 }
 
+message GetGroupByUserRequest {
+  string user_id = 1;
+}
 message UpdateFormRequest {
   string user_id = 1;
   Parameters parameters = 2;
@@ -102,6 +106,7 @@ message DeleteFormRequest {
 // GroupQuery Service
 service GroupQueryService {
   rpc GetGroup(GetGroupRequest) returns (Group);
+  rpc GetGroupByUser(GetGroupByUserRequest) returns (Group);
   rpc DeleteGroup(DeleteGroupRequest) returns (google.protobuf.Empty);
   rpc ListGroupMembers(ListGroupMembersRequest) returns (ListGroupMembersResponse);
 }
@@ -137,17 +142,17 @@ message FindGroupsResponse {
 
 // Group Service
 service GroupService {
-  rpc GetReqeusts(GetReqeustsRequest) returns (GetReqeustsResponse);
+  rpc GetRequests(GetRequestsRequest) returns (GetRequestsResponse);
   rpc SendJoinRequest(SendJoinRequestRequest) returns (SendJoinRequestResponse);
   rpc AcceptJoinRequest(AcceptJoinRequestRequest) returns (google.protobuf.Empty);
   rpc RejectJoinRequest(RejectJoinRequestRequest) returns (google.protobuf.Empty);
 }
 
-message GetReqeustsRequest {
+message GetRequestsRequest {
   string group_id = 1;
 }
 
-message GetReqeustsResponse {
+message GetRequestsResponse {
   repeated GroupRequest requests = 1;
 }
 
