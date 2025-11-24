@@ -114,7 +114,7 @@ service GroupQueryService {
 }
 
 message KickGroupRequest {
-  string group_id = 1;
+  string owner_id = 1;
   string user_id = 2;
 }
 
