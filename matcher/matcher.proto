@@ -105,10 +105,21 @@ message DeleteFormRequest {
 
 // GroupQuery Service
 service GroupQueryService {
+  rpc LeaveGroup(LeaveGroupRequest) returns (google.protobuf.Empty);
+  rpc KickGroup(KickGroupRequest) returns (google.protobuf.Empty);
   rpc GetGroup(GetGroupRequest) returns (Group);
   rpc GetGroupByUser(GetGroupByUserRequest) returns (Group);
   rpc DeleteGroup(DeleteGroupRequest) returns (google.protobuf.Empty);
   rpc ListGroupMembers(ListGroupMembersRequest) returns (ListGroupMembersResponse);
+}
+
+message KickGroupRequest {
+  string group_id = 1;
+  string user_id = 2;
+}
+
+message LeaveGroupRequest {
+  string user_id = 1;
 }
 
 message GetGroupRequest {
