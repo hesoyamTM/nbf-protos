@@ -864,6 +864,102 @@ func (x *DeleteFormRequest) GetUserId() string {
 	return ""
 }
 
+type KickGroupRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	OwnerId       string                 `protobuf:"bytes,1,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *KickGroupRequest) Reset() {
+	*x = KickGroupRequest{}
+	mi := &file_matcher_matcher_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *KickGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KickGroupRequest) ProtoMessage() {}
+
+func (x *KickGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_matcher_matcher_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KickGroupRequest.ProtoReflect.Descriptor instead.
+func (*KickGroupRequest) Descriptor() ([]byte, []int) {
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *KickGroupRequest) GetOwnerId() string {
+	if x != nil {
+		return x.OwnerId
+	}
+	return ""
+}
+
+func (x *KickGroupRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type LeaveGroupRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LeaveGroupRequest) Reset() {
+	*x = LeaveGroupRequest{}
+	mi := &file_matcher_matcher_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LeaveGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LeaveGroupRequest) ProtoMessage() {}
+
+func (x *LeaveGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_matcher_matcher_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LeaveGroupRequest.ProtoReflect.Descriptor instead.
+func (*LeaveGroupRequest) Descriptor() ([]byte, []int) {
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *LeaveGroupRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
 type GetGroupRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	GroupId       string                 `protobuf:"bytes,1,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
@@ -873,7 +969,7 @@ type GetGroupRequest struct {
 
 func (x *GetGroupRequest) Reset() {
 	*x = GetGroupRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[11]
+	mi := &file_matcher_matcher_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -885,7 +981,7 @@ func (x *GetGroupRequest) String() string {
 func (*GetGroupRequest) ProtoMessage() {}
 
 func (x *GetGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[11]
+	mi := &file_matcher_matcher_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -898,7 +994,7 @@ func (x *GetGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetGroupRequest.ProtoReflect.Descriptor instead.
 func (*GetGroupRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{11}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GetGroupRequest) GetGroupId() string {
@@ -917,7 +1013,7 @@ type DeleteGroupRequest struct {
 
 func (x *DeleteGroupRequest) Reset() {
 	*x = DeleteGroupRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[12]
+	mi := &file_matcher_matcher_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -929,7 +1025,7 @@ func (x *DeleteGroupRequest) String() string {
 func (*DeleteGroupRequest) ProtoMessage() {}
 
 func (x *DeleteGroupRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[12]
+	mi := &file_matcher_matcher_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -942,7 +1038,7 @@ func (x *DeleteGroupRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteGroupRequest.ProtoReflect.Descriptor instead.
 func (*DeleteGroupRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{12}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *DeleteGroupRequest) GetOwnerId() string {
@@ -961,7 +1057,7 @@ type ListGroupMembersRequest struct {
 
 func (x *ListGroupMembersRequest) Reset() {
 	*x = ListGroupMembersRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[13]
+	mi := &file_matcher_matcher_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -973,7 +1069,7 @@ func (x *ListGroupMembersRequest) String() string {
 func (*ListGroupMembersRequest) ProtoMessage() {}
 
 func (x *ListGroupMembersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[13]
+	mi := &file_matcher_matcher_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -986,7 +1082,7 @@ func (x *ListGroupMembersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListGroupMembersRequest.ProtoReflect.Descriptor instead.
 func (*ListGroupMembersRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{13}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ListGroupMembersRequest) GetGroupId() string {
@@ -1005,7 +1101,7 @@ type ListGroupMembersResponse struct {
 
 func (x *ListGroupMembersResponse) Reset() {
 	*x = ListGroupMembersResponse{}
-	mi := &file_matcher_matcher_proto_msgTypes[14]
+	mi := &file_matcher_matcher_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1017,7 +1113,7 @@ func (x *ListGroupMembersResponse) String() string {
 func (*ListGroupMembersResponse) ProtoMessage() {}
 
 func (x *ListGroupMembersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[14]
+	mi := &file_matcher_matcher_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1030,7 +1126,7 @@ func (x *ListGroupMembersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListGroupMembersResponse.ProtoReflect.Descriptor instead.
 func (*ListGroupMembersResponse) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{14}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ListGroupMembersResponse) GetMembers() []*Form {
@@ -1049,7 +1145,7 @@ type FindGroupsRequest struct {
 
 func (x *FindGroupsRequest) Reset() {
 	*x = FindGroupsRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[15]
+	mi := &file_matcher_matcher_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1061,7 +1157,7 @@ func (x *FindGroupsRequest) String() string {
 func (*FindGroupsRequest) ProtoMessage() {}
 
 func (x *FindGroupsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[15]
+	mi := &file_matcher_matcher_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1074,7 +1170,7 @@ func (x *FindGroupsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindGroupsRequest.ProtoReflect.Descriptor instead.
 func (*FindGroupsRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{15}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *FindGroupsRequest) GetUserId() string {
@@ -1093,7 +1189,7 @@ type FindGroupsResponse struct {
 
 func (x *FindGroupsResponse) Reset() {
 	*x = FindGroupsResponse{}
-	mi := &file_matcher_matcher_proto_msgTypes[16]
+	mi := &file_matcher_matcher_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1105,7 +1201,7 @@ func (x *FindGroupsResponse) String() string {
 func (*FindGroupsResponse) ProtoMessage() {}
 
 func (x *FindGroupsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[16]
+	mi := &file_matcher_matcher_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1118,7 +1214,7 @@ func (x *FindGroupsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindGroupsResponse.ProtoReflect.Descriptor instead.
 func (*FindGroupsResponse) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{16}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *FindGroupsResponse) GetGroups() []*GroupWithScore {
@@ -1137,7 +1233,7 @@ type GetRequestsRequest struct {
 
 func (x *GetRequestsRequest) Reset() {
 	*x = GetRequestsRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[17]
+	mi := &file_matcher_matcher_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1149,7 +1245,7 @@ func (x *GetRequestsRequest) String() string {
 func (*GetRequestsRequest) ProtoMessage() {}
 
 func (x *GetRequestsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[17]
+	mi := &file_matcher_matcher_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1162,7 +1258,7 @@ func (x *GetRequestsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRequestsRequest.ProtoReflect.Descriptor instead.
 func (*GetRequestsRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{17}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetRequestsRequest) GetGroupId() string {
@@ -1181,7 +1277,7 @@ type GetRequestsResponse struct {
 
 func (x *GetRequestsResponse) Reset() {
 	*x = GetRequestsResponse{}
-	mi := &file_matcher_matcher_proto_msgTypes[18]
+	mi := &file_matcher_matcher_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1193,7 +1289,7 @@ func (x *GetRequestsResponse) String() string {
 func (*GetRequestsResponse) ProtoMessage() {}
 
 func (x *GetRequestsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[18]
+	mi := &file_matcher_matcher_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1206,7 +1302,7 @@ func (x *GetRequestsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRequestsResponse.ProtoReflect.Descriptor instead.
 func (*GetRequestsResponse) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{18}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetRequestsResponse) GetRequests() []*GroupRequest {
@@ -1226,7 +1322,7 @@ type SendJoinRequestRequest struct {
 
 func (x *SendJoinRequestRequest) Reset() {
 	*x = SendJoinRequestRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[19]
+	mi := &file_matcher_matcher_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1238,7 +1334,7 @@ func (x *SendJoinRequestRequest) String() string {
 func (*SendJoinRequestRequest) ProtoMessage() {}
 
 func (x *SendJoinRequestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[19]
+	mi := &file_matcher_matcher_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1251,7 +1347,7 @@ func (x *SendJoinRequestRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendJoinRequestRequest.ProtoReflect.Descriptor instead.
 func (*SendJoinRequestRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{19}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *SendJoinRequestRequest) GetUserId() string {
@@ -1277,7 +1373,7 @@ type SendJoinRequestResponse struct {
 
 func (x *SendJoinRequestResponse) Reset() {
 	*x = SendJoinRequestResponse{}
-	mi := &file_matcher_matcher_proto_msgTypes[20]
+	mi := &file_matcher_matcher_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1289,7 +1385,7 @@ func (x *SendJoinRequestResponse) String() string {
 func (*SendJoinRequestResponse) ProtoMessage() {}
 
 func (x *SendJoinRequestResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[20]
+	mi := &file_matcher_matcher_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1302,7 +1398,7 @@ func (x *SendJoinRequestResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendJoinRequestResponse.ProtoReflect.Descriptor instead.
 func (*SendJoinRequestResponse) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{20}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *SendJoinRequestResponse) GetRequestId() string {
@@ -1322,7 +1418,7 @@ type AcceptJoinRequestRequest struct {
 
 func (x *AcceptJoinRequestRequest) Reset() {
 	*x = AcceptJoinRequestRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[21]
+	mi := &file_matcher_matcher_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1334,7 +1430,7 @@ func (x *AcceptJoinRequestRequest) String() string {
 func (*AcceptJoinRequestRequest) ProtoMessage() {}
 
 func (x *AcceptJoinRequestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[21]
+	mi := &file_matcher_matcher_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1347,7 +1443,7 @@ func (x *AcceptJoinRequestRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AcceptJoinRequestRequest.ProtoReflect.Descriptor instead.
 func (*AcceptJoinRequestRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{21}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *AcceptJoinRequestRequest) GetOwnerId() string {
@@ -1374,7 +1470,7 @@ type RejectJoinRequestRequest struct {
 
 func (x *RejectJoinRequestRequest) Reset() {
 	*x = RejectJoinRequestRequest{}
-	mi := &file_matcher_matcher_proto_msgTypes[22]
+	mi := &file_matcher_matcher_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1386,7 +1482,7 @@ func (x *RejectJoinRequestRequest) String() string {
 func (*RejectJoinRequestRequest) ProtoMessage() {}
 
 func (x *RejectJoinRequestRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_matcher_matcher_proto_msgTypes[22]
+	mi := &file_matcher_matcher_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1399,7 +1495,7 @@ func (x *RejectJoinRequestRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RejectJoinRequestRequest.ProtoReflect.Descriptor instead.
 func (*RejectJoinRequestRequest) Descriptor() ([]byte, []int) {
-	return file_matcher_matcher_proto_rawDescGZIP(), []int{22}
+	return file_matcher_matcher_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *RejectJoinRequestRequest) GetOwnerId() string {
@@ -1490,6 +1586,11 @@ const file_matcher_matcher_proto_rawDesc = "" +
 	"parameters\x18\x02 \x01(\v2\x13.matcher.ParametersR\n" +
 	"parameters\",\n" +
 	"\x11DeleteFormRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"F\n" +
+	"\x10KickGroupRequest\x12\x19\n" +
+	"\bowner_id\x18\x01 \x01(\tR\aownerId\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\",\n" +
+	"\x11LeaveGroupRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\",\n" +
 	"\x0fGetGroupRequest\x12\x19\n" +
 	"\bgroup_id\x18\x01 \x01(\tR\agroupId\"/\n" +
@@ -1538,8 +1639,11 @@ const file_matcher_matcher_proto_rawDesc = "" +
 	"\n" +
 	"UpdateForm\x12\x1a.matcher.UpdateFormRequest\x1a\x16.google.protobuf.Empty\x12@\n" +
 	"\n" +
-	"DeleteForm\x12\x1a.matcher.DeleteFormRequest\x1a\x16.google.protobuf.Empty2\xa8\x02\n" +
-	"\x11GroupQueryService\x124\n" +
+	"DeleteForm\x12\x1a.matcher.DeleteFormRequest\x1a\x16.google.protobuf.Empty2\xaa\x03\n" +
+	"\x11GroupQueryService\x12@\n" +
+	"\n" +
+	"LeaveGroup\x12\x1a.matcher.LeaveGroupRequest\x1a\x16.google.protobuf.Empty\x12>\n" +
+	"\tKickGroup\x12\x19.matcher.KickGroupRequest\x1a\x16.google.protobuf.Empty\x124\n" +
 	"\bGetGroup\x12\x18.matcher.GetGroupRequest\x1a\x0e.matcher.Group\x12@\n" +
 	"\x0eGetGroupByUser\x12\x1e.matcher.GetGroupByUserRequest\x1a\x0e.matcher.Group\x12B\n" +
 	"\vDeleteGroup\x12\x1b.matcher.DeleteGroupRequest\x1a\x16.google.protobuf.Empty\x12W\n" +
@@ -1566,7 +1670,7 @@ func file_matcher_matcher_proto_rawDescGZIP() []byte {
 }
 
 var file_matcher_matcher_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_matcher_matcher_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
+var file_matcher_matcher_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
 var file_matcher_matcher_proto_goTypes = []any{
 	(Sex)(0),                         // 0: matcher.Sex
 	(UserType)(0),                    // 1: matcher.UserType
@@ -1581,32 +1685,34 @@ var file_matcher_matcher_proto_goTypes = []any{
 	(*GetGroupByUserRequest)(nil),    // 10: matcher.GetGroupByUserRequest
 	(*UpdateFormRequest)(nil),        // 11: matcher.UpdateFormRequest
 	(*DeleteFormRequest)(nil),        // 12: matcher.DeleteFormRequest
-	(*GetGroupRequest)(nil),          // 13: matcher.GetGroupRequest
-	(*DeleteGroupRequest)(nil),       // 14: matcher.DeleteGroupRequest
-	(*ListGroupMembersRequest)(nil),  // 15: matcher.ListGroupMembersRequest
-	(*ListGroupMembersResponse)(nil), // 16: matcher.ListGroupMembersResponse
-	(*FindGroupsRequest)(nil),        // 17: matcher.FindGroupsRequest
-	(*FindGroupsResponse)(nil),       // 18: matcher.FindGroupsResponse
-	(*GetRequestsRequest)(nil),       // 19: matcher.GetRequestsRequest
-	(*GetRequestsResponse)(nil),      // 20: matcher.GetRequestsResponse
-	(*SendJoinRequestRequest)(nil),   // 21: matcher.SendJoinRequestRequest
-	(*SendJoinRequestResponse)(nil),  // 22: matcher.SendJoinRequestResponse
-	(*AcceptJoinRequestRequest)(nil), // 23: matcher.AcceptJoinRequestRequest
-	(*RejectJoinRequestRequest)(nil), // 24: matcher.RejectJoinRequestRequest
-	(*timestamppb.Timestamp)(nil),    // 25: google.protobuf.Timestamp
-	(*emptypb.Empty)(nil),            // 26: google.protobuf.Empty
+	(*KickGroupRequest)(nil),         // 13: matcher.KickGroupRequest
+	(*LeaveGroupRequest)(nil),        // 14: matcher.LeaveGroupRequest
+	(*GetGroupRequest)(nil),          // 15: matcher.GetGroupRequest
+	(*DeleteGroupRequest)(nil),       // 16: matcher.DeleteGroupRequest
+	(*ListGroupMembersRequest)(nil),  // 17: matcher.ListGroupMembersRequest
+	(*ListGroupMembersResponse)(nil), // 18: matcher.ListGroupMembersResponse
+	(*FindGroupsRequest)(nil),        // 19: matcher.FindGroupsRequest
+	(*FindGroupsResponse)(nil),       // 20: matcher.FindGroupsResponse
+	(*GetRequestsRequest)(nil),       // 21: matcher.GetRequestsRequest
+	(*GetRequestsResponse)(nil),      // 22: matcher.GetRequestsResponse
+	(*SendJoinRequestRequest)(nil),   // 23: matcher.SendJoinRequestRequest
+	(*SendJoinRequestResponse)(nil),  // 24: matcher.SendJoinRequestResponse
+	(*AcceptJoinRequestRequest)(nil), // 25: matcher.AcceptJoinRequestRequest
+	(*RejectJoinRequestRequest)(nil), // 26: matcher.RejectJoinRequestRequest
+	(*timestamppb.Timestamp)(nil),    // 27: google.protobuf.Timestamp
+	(*emptypb.Empty)(nil),            // 28: google.protobuf.Empty
 }
 var file_matcher_matcher_proto_depIdxs = []int32{
 	2,  // 0: matcher.Parameters.geo:type_name -> matcher.Point
 	0,  // 1: matcher.Parameters.sex:type_name -> matcher.Sex
 	1,  // 2: matcher.Parameters.user_type:type_name -> matcher.UserType
 	3,  // 3: matcher.Form.parameters:type_name -> matcher.Parameters
-	25, // 4: matcher.Form.created_at:type_name -> google.protobuf.Timestamp
-	25, // 5: matcher.Form.updated_at:type_name -> google.protobuf.Timestamp
-	25, // 6: matcher.GroupRequest.created_at:type_name -> google.protobuf.Timestamp
+	27, // 4: matcher.Form.created_at:type_name -> google.protobuf.Timestamp
+	27, // 5: matcher.Form.updated_at:type_name -> google.protobuf.Timestamp
+	27, // 6: matcher.GroupRequest.created_at:type_name -> google.protobuf.Timestamp
 	3,  // 7: matcher.Group.parameters:type_name -> matcher.Parameters
-	25, // 8: matcher.Group.created_at:type_name -> google.protobuf.Timestamp
-	25, // 9: matcher.Group.updated_at:type_name -> google.protobuf.Timestamp
+	27, // 8: matcher.Group.created_at:type_name -> google.protobuf.Timestamp
+	27, // 9: matcher.Group.updated_at:type_name -> google.protobuf.Timestamp
 	6,  // 10: matcher.GroupWithScore.group:type_name -> matcher.Group
 	3,  // 11: matcher.CreateFormRequest.parameters:type_name -> matcher.Parameters
 	3,  // 12: matcher.UpdateFormRequest.parameters:type_name -> matcher.Parameters
@@ -1617,30 +1723,34 @@ var file_matcher_matcher_proto_depIdxs = []int32{
 	9,  // 17: matcher.FormService.GetFormByUser:input_type -> matcher.GetFormByUserRequest
 	11, // 18: matcher.FormService.UpdateForm:input_type -> matcher.UpdateFormRequest
 	12, // 19: matcher.FormService.DeleteForm:input_type -> matcher.DeleteFormRequest
-	13, // 20: matcher.GroupQueryService.GetGroup:input_type -> matcher.GetGroupRequest
-	10, // 21: matcher.GroupQueryService.GetGroupByUser:input_type -> matcher.GetGroupByUserRequest
-	14, // 22: matcher.GroupQueryService.DeleteGroup:input_type -> matcher.DeleteGroupRequest
-	15, // 23: matcher.GroupQueryService.ListGroupMembers:input_type -> matcher.ListGroupMembersRequest
-	17, // 24: matcher.FindGroupService.FindGroups:input_type -> matcher.FindGroupsRequest
-	19, // 25: matcher.GroupService.GetRequests:input_type -> matcher.GetRequestsRequest
-	21, // 26: matcher.GroupService.SendJoinRequest:input_type -> matcher.SendJoinRequestRequest
-	23, // 27: matcher.GroupService.AcceptJoinRequest:input_type -> matcher.AcceptJoinRequestRequest
-	24, // 28: matcher.GroupService.RejectJoinRequest:input_type -> matcher.RejectJoinRequestRequest
-	26, // 29: matcher.FormService.CreateForm:output_type -> google.protobuf.Empty
-	4,  // 30: matcher.FormService.GetFormByUser:output_type -> matcher.Form
-	26, // 31: matcher.FormService.UpdateForm:output_type -> google.protobuf.Empty
-	26, // 32: matcher.FormService.DeleteForm:output_type -> google.protobuf.Empty
-	6,  // 33: matcher.GroupQueryService.GetGroup:output_type -> matcher.Group
-	6,  // 34: matcher.GroupQueryService.GetGroupByUser:output_type -> matcher.Group
-	26, // 35: matcher.GroupQueryService.DeleteGroup:output_type -> google.protobuf.Empty
-	16, // 36: matcher.GroupQueryService.ListGroupMembers:output_type -> matcher.ListGroupMembersResponse
-	18, // 37: matcher.FindGroupService.FindGroups:output_type -> matcher.FindGroupsResponse
-	20, // 38: matcher.GroupService.GetRequests:output_type -> matcher.GetRequestsResponse
-	22, // 39: matcher.GroupService.SendJoinRequest:output_type -> matcher.SendJoinRequestResponse
-	26, // 40: matcher.GroupService.AcceptJoinRequest:output_type -> google.protobuf.Empty
-	26, // 41: matcher.GroupService.RejectJoinRequest:output_type -> google.protobuf.Empty
-	29, // [29:42] is the sub-list for method output_type
-	16, // [16:29] is the sub-list for method input_type
+	14, // 20: matcher.GroupQueryService.LeaveGroup:input_type -> matcher.LeaveGroupRequest
+	13, // 21: matcher.GroupQueryService.KickGroup:input_type -> matcher.KickGroupRequest
+	15, // 22: matcher.GroupQueryService.GetGroup:input_type -> matcher.GetGroupRequest
+	10, // 23: matcher.GroupQueryService.GetGroupByUser:input_type -> matcher.GetGroupByUserRequest
+	16, // 24: matcher.GroupQueryService.DeleteGroup:input_type -> matcher.DeleteGroupRequest
+	17, // 25: matcher.GroupQueryService.ListGroupMembers:input_type -> matcher.ListGroupMembersRequest
+	19, // 26: matcher.FindGroupService.FindGroups:input_type -> matcher.FindGroupsRequest
+	21, // 27: matcher.GroupService.GetRequests:input_type -> matcher.GetRequestsRequest
+	23, // 28: matcher.GroupService.SendJoinRequest:input_type -> matcher.SendJoinRequestRequest
+	25, // 29: matcher.GroupService.AcceptJoinRequest:input_type -> matcher.AcceptJoinRequestRequest
+	26, // 30: matcher.GroupService.RejectJoinRequest:input_type -> matcher.RejectJoinRequestRequest
+	28, // 31: matcher.FormService.CreateForm:output_type -> google.protobuf.Empty
+	4,  // 32: matcher.FormService.GetFormByUser:output_type -> matcher.Form
+	28, // 33: matcher.FormService.UpdateForm:output_type -> google.protobuf.Empty
+	28, // 34: matcher.FormService.DeleteForm:output_type -> google.protobuf.Empty
+	28, // 35: matcher.GroupQueryService.LeaveGroup:output_type -> google.protobuf.Empty
+	28, // 36: matcher.GroupQueryService.KickGroup:output_type -> google.protobuf.Empty
+	6,  // 37: matcher.GroupQueryService.GetGroup:output_type -> matcher.Group
+	6,  // 38: matcher.GroupQueryService.GetGroupByUser:output_type -> matcher.Group
+	28, // 39: matcher.GroupQueryService.DeleteGroup:output_type -> google.protobuf.Empty
+	18, // 40: matcher.GroupQueryService.ListGroupMembers:output_type -> matcher.ListGroupMembersResponse
+	20, // 41: matcher.FindGroupService.FindGroups:output_type -> matcher.FindGroupsResponse
+	22, // 42: matcher.GroupService.GetRequests:output_type -> matcher.GetRequestsResponse
+	24, // 43: matcher.GroupService.SendJoinRequest:output_type -> matcher.SendJoinRequestResponse
+	28, // 44: matcher.GroupService.AcceptJoinRequest:output_type -> google.protobuf.Empty
+	28, // 45: matcher.GroupService.RejectJoinRequest:output_type -> google.protobuf.Empty
+	31, // [31:46] is the sub-list for method output_type
+	16, // [16:31] is the sub-list for method input_type
 	16, // [16:16] is the sub-list for extension type_name
 	16, // [16:16] is the sub-list for extension extendee
 	0,  // [0:16] is the sub-list for field type_name
@@ -1657,7 +1767,7 @@ func file_matcher_matcher_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_matcher_matcher_proto_rawDesc), len(file_matcher_matcher_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   23,
+			NumMessages:   25,
 			NumExtensions: 0,
 			NumServices:   4,
 		},

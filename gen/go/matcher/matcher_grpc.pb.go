@@ -240,6 +240,8 @@ var FormService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
+	GroupQueryService_LeaveGroup_FullMethodName       = "/matcher.GroupQueryService/LeaveGroup"
+	GroupQueryService_KickGroup_FullMethodName        = "/matcher.GroupQueryService/KickGroup"
 	GroupQueryService_GetGroup_FullMethodName         = "/matcher.GroupQueryService/GetGroup"
 	GroupQueryService_GetGroupByUser_FullMethodName   = "/matcher.GroupQueryService/GetGroupByUser"
 	GroupQueryService_DeleteGroup_FullMethodName      = "/matcher.GroupQueryService/DeleteGroup"
@@ -252,6 +254,8 @@ const (
 //
 // GroupQuery Service
 type GroupQueryServiceClient interface {
+	LeaveGroup(ctx context.Context, in *LeaveGroupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	KickGroup(ctx context.Context, in *KickGroupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetGroup(ctx context.Context, in *GetGroupRequest, opts ...grpc.CallOption) (*Group, error)
 	GetGroupByUser(ctx context.Context, in *GetGroupByUserRequest, opts ...grpc.CallOption) (*Group, error)
 	DeleteGroup(ctx context.Context, in *DeleteGroupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -264,6 +268,26 @@ type groupQueryServiceClient struct {
 
 func NewGroupQueryServiceClient(cc grpc.ClientConnInterface) GroupQueryServiceClient {
 	return &groupQueryServiceClient{cc}
+}
+
+func (c *groupQueryServiceClient) LeaveGroup(ctx context.Context, in *LeaveGroupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, GroupQueryService_LeaveGroup_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *groupQueryServiceClient) KickGroup(ctx context.Context, in *KickGroupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, GroupQueryService_KickGroup_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *groupQueryServiceClient) GetGroup(ctx context.Context, in *GetGroupRequest, opts ...grpc.CallOption) (*Group, error) {
@@ -312,6 +336,8 @@ func (c *groupQueryServiceClient) ListGroupMembers(ctx context.Context, in *List
 //
 // GroupQuery Service
 type GroupQueryServiceServer interface {
+	LeaveGroup(context.Context, *LeaveGroupRequest) (*emptypb.Empty, error)
+	KickGroup(context.Context, *KickGroupRequest) (*emptypb.Empty, error)
 	GetGroup(context.Context, *GetGroupRequest) (*Group, error)
 	GetGroupByUser(context.Context, *GetGroupByUserRequest) (*Group, error)
 	DeleteGroup(context.Context, *DeleteGroupRequest) (*emptypb.Empty, error)
@@ -326,6 +352,12 @@ type GroupQueryServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGroupQueryServiceServer struct{}
 
+func (UnimplementedGroupQueryServiceServer) LeaveGroup(context.Context, *LeaveGroupRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LeaveGroup not implemented")
+}
+func (UnimplementedGroupQueryServiceServer) KickGroup(context.Context, *KickGroupRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method KickGroup not implemented")
+}
 func (UnimplementedGroupQueryServiceServer) GetGroup(context.Context, *GetGroupRequest) (*Group, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGroup not implemented")
 }
@@ -357,6 +389,42 @@ func RegisterGroupQueryServiceServer(s grpc.ServiceRegistrar, srv GroupQueryServ
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&GroupQueryService_ServiceDesc, srv)
+}
+
+func _GroupQueryService_LeaveGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LeaveGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GroupQueryServiceServer).LeaveGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GroupQueryService_LeaveGroup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GroupQueryServiceServer).LeaveGroup(ctx, req.(*LeaveGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GroupQueryService_KickGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(KickGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GroupQueryServiceServer).KickGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GroupQueryService_KickGroup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GroupQueryServiceServer).KickGroup(ctx, req.(*KickGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _GroupQueryService_GetGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -438,6 +506,14 @@ var GroupQueryService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "matcher.GroupQueryService",
 	HandlerType: (*GroupQueryServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "LeaveGroup",
+			Handler:    _GroupQueryService_LeaveGroup_Handler,
+		},
+		{
+			MethodName: "KickGroup",
+			Handler:    _GroupQueryService_KickGroup_Handler,
+		},
 		{
 			MethodName: "GetGroup",
 			Handler:    _GroupQueryService_GetGroup_Handler,
