@@ -16,6 +16,8 @@ service Auth {
   rpc GoogleAuthorize(GoogleAuthorizeRequest) returns (GoogleAuthorizeResponse);
   rpc YandexLoginURL(YandexLoginURLRequest) returns (YandexLoginURLResponse);
   rpc YandexAuthorize(YandexAuthorizeRequest) returns (YandexAuthorizeResponse);
+  rpc IsUserBlocked(IsUserBlockedRequest) returns (IsUserBlockedResponse);
+  rpc BlockUser(BlockUserRequest) returns (BlockUserResponse);
 }
 
 message RegisterRequest {
@@ -107,4 +109,20 @@ message YandexAuthorizeResponse {
   string refresh_token = 2;
   google.protobuf.Timestamp access_expire_at = 3;
   google.protobuf.Timestamp refresh_expire_at = 4;
+}
+
+message IsUserBlockedRequest {
+  string user_id = 1;
+}
+
+message IsUserBlockedResponse {
+  bool blocked = 1;
+}
+
+message BlockUserRequest {
+  string user_id = 1;
+}
+
+message BlockUserResponse {
+  
 }

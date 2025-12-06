@@ -28,6 +28,8 @@ const (
 	Auth_GoogleAuthorize_FullMethodName   = "/auth.Auth/GoogleAuthorize"
 	Auth_YandexLoginURL_FullMethodName    = "/auth.Auth/YandexLoginURL"
 	Auth_YandexAuthorize_FullMethodName   = "/auth.Auth/YandexAuthorize"
+	Auth_IsUserBlocked_FullMethodName     = "/auth.Auth/IsUserBlocked"
+	Auth_BlockUser_FullMethodName         = "/auth.Auth/BlockUser"
 )
 
 // AuthClient is the client API for Auth service.
@@ -43,6 +45,8 @@ type AuthClient interface {
 	GoogleAuthorize(ctx context.Context, in *GoogleAuthorizeRequest, opts ...grpc.CallOption) (*GoogleAuthorizeResponse, error)
 	YandexLoginURL(ctx context.Context, in *YandexLoginURLRequest, opts ...grpc.CallOption) (*YandexLoginURLResponse, error)
 	YandexAuthorize(ctx context.Context, in *YandexAuthorizeRequest, opts ...grpc.CallOption) (*YandexAuthorizeResponse, error)
+	IsUserBlocked(ctx context.Context, in *IsUserBlockedRequest, opts ...grpc.CallOption) (*IsUserBlockedResponse, error)
+	BlockUser(ctx context.Context, in *BlockUserRequest, opts ...grpc.CallOption) (*BlockUserResponse, error)
 }
 
 type authClient struct {
@@ -143,6 +147,26 @@ func (c *authClient) YandexAuthorize(ctx context.Context, in *YandexAuthorizeReq
 	return out, nil
 }
 
+func (c *authClient) IsUserBlocked(ctx context.Context, in *IsUserBlockedRequest, opts ...grpc.CallOption) (*IsUserBlockedResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(IsUserBlockedResponse)
+	err := c.cc.Invoke(ctx, Auth_IsUserBlocked_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) BlockUser(ctx context.Context, in *BlockUserRequest, opts ...grpc.CallOption) (*BlockUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BlockUserResponse)
+	err := c.cc.Invoke(ctx, Auth_BlockUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
@@ -156,6 +180,8 @@ type AuthServer interface {
 	GoogleAuthorize(context.Context, *GoogleAuthorizeRequest) (*GoogleAuthorizeResponse, error)
 	YandexLoginURL(context.Context, *YandexLoginURLRequest) (*YandexLoginURLResponse, error)
 	YandexAuthorize(context.Context, *YandexAuthorizeRequest) (*YandexAuthorizeResponse, error)
+	IsUserBlocked(context.Context, *IsUserBlockedRequest) (*IsUserBlockedResponse, error)
+	BlockUser(context.Context, *BlockUserRequest) (*BlockUserResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -192,6 +218,12 @@ func (UnimplementedAuthServer) YandexLoginURL(context.Context, *YandexLoginURLRe
 }
 func (UnimplementedAuthServer) YandexAuthorize(context.Context, *YandexAuthorizeRequest) (*YandexAuthorizeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method YandexAuthorize not implemented")
+}
+func (UnimplementedAuthServer) IsUserBlocked(context.Context, *IsUserBlockedRequest) (*IsUserBlockedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsUserBlocked not implemented")
+}
+func (UnimplementedAuthServer) BlockUser(context.Context, *BlockUserRequest) (*BlockUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BlockUser not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 func (UnimplementedAuthServer) testEmbeddedByValue()              {}
@@ -376,6 +408,42 @@ func _Auth_YandexAuthorize_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_IsUserBlocked_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsUserBlockedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).IsUserBlocked(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_IsUserBlocked_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).IsUserBlocked(ctx, req.(*IsUserBlockedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_BlockUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BlockUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).BlockUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_BlockUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).BlockUser(ctx, req.(*BlockUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -418,6 +486,14 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "YandexAuthorize",
 			Handler:    _Auth_YandexAuthorize_Handler,
+		},
+		{
+			MethodName: "IsUserBlocked",
+			Handler:    _Auth_IsUserBlocked_Handler,
+		},
+		{
+			MethodName: "BlockUser",
+			Handler:    _Auth_BlockUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
