@@ -30,6 +30,7 @@ const (
 	Auth_YandexAuthorize_FullMethodName   = "/auth.Auth/YandexAuthorize"
 	Auth_IsUserBlocked_FullMethodName     = "/auth.Auth/IsUserBlocked"
 	Auth_BlockUser_FullMethodName         = "/auth.Auth/BlockUser"
+	Auth_UnblockUser_FullMethodName       = "/auth.Auth/UnblockUser"
 )
 
 // AuthClient is the client API for Auth service.
@@ -47,6 +48,7 @@ type AuthClient interface {
 	YandexAuthorize(ctx context.Context, in *YandexAuthorizeRequest, opts ...grpc.CallOption) (*YandexAuthorizeResponse, error)
 	IsUserBlocked(ctx context.Context, in *IsUserBlockedRequest, opts ...grpc.CallOption) (*IsUserBlockedResponse, error)
 	BlockUser(ctx context.Context, in *BlockUserRequest, opts ...grpc.CallOption) (*BlockUserResponse, error)
+	UnblockUser(ctx context.Context, in *BlockUserRequest, opts ...grpc.CallOption) (*BlockUserResponse, error)
 }
 
 type authClient struct {
@@ -167,6 +169,16 @@ func (c *authClient) BlockUser(ctx context.Context, in *BlockUserRequest, opts .
 	return out, nil
 }
 
+func (c *authClient) UnblockUser(ctx context.Context, in *BlockUserRequest, opts ...grpc.CallOption) (*BlockUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(BlockUserResponse)
+	err := c.cc.Invoke(ctx, Auth_UnblockUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
@@ -182,6 +194,7 @@ type AuthServer interface {
 	YandexAuthorize(context.Context, *YandexAuthorizeRequest) (*YandexAuthorizeResponse, error)
 	IsUserBlocked(context.Context, *IsUserBlockedRequest) (*IsUserBlockedResponse, error)
 	BlockUser(context.Context, *BlockUserRequest) (*BlockUserResponse, error)
+	UnblockUser(context.Context, *BlockUserRequest) (*BlockUserResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -224,6 +237,9 @@ func (UnimplementedAuthServer) IsUserBlocked(context.Context, *IsUserBlockedRequ
 }
 func (UnimplementedAuthServer) BlockUser(context.Context, *BlockUserRequest) (*BlockUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockUser not implemented")
+}
+func (UnimplementedAuthServer) UnblockUser(context.Context, *BlockUserRequest) (*BlockUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnblockUser not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 func (UnimplementedAuthServer) testEmbeddedByValue()              {}
@@ -444,6 +460,24 @@ func _Auth_BlockUser_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_UnblockUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BlockUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).UnblockUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_UnblockUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).UnblockUser(ctx, req.(*BlockUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -494,6 +528,10 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BlockUser",
 			Handler:    _Auth_BlockUser_Handler,
+		},
+		{
+			MethodName: "UnblockUser",
+			Handler:    _Auth_UnblockUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

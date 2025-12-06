@@ -1110,6 +1110,86 @@ func (*BlockUserResponse) Descriptor() ([]byte, []int) {
 	return file_auth_auth_proto_rawDescGZIP(), []int{21}
 }
 
+type UnblockUserRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UnblockUserRequest) Reset() {
+	*x = UnblockUserRequest{}
+	mi := &file_auth_auth_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UnblockUserRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnblockUserRequest) ProtoMessage() {}
+
+func (x *UnblockUserRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_auth_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnblockUserRequest.ProtoReflect.Descriptor instead.
+func (*UnblockUserRequest) Descriptor() ([]byte, []int) {
+	return file_auth_auth_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *UnblockUserRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type UnblockUserResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UnblockUserResponse) Reset() {
+	*x = UnblockUserResponse{}
+	mi := &file_auth_auth_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UnblockUserResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnblockUserResponse) ProtoMessage() {}
+
+func (x *UnblockUserResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_auth_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnblockUserResponse.ProtoReflect.Descriptor instead.
+func (*UnblockUserResponse) Descriptor() ([]byte, []int) {
+	return file_auth_auth_proto_rawDescGZIP(), []int{23}
+}
+
 var File_auth_auth_proto protoreflect.FileDescriptor
 
 const file_auth_auth_proto_rawDesc = "" +
@@ -1173,7 +1253,10 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\ablocked\x18\x01 \x01(\bR\ablocked\"+\n" +
 	"\x10BlockUserRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\"\x13\n" +
-	"\x11BlockUserResponse2\x87\x06\n" +
+	"\x11BlockUserResponse\"-\n" +
+	"\x12UnblockUserRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"\x15\n" +
+	"\x13UnblockUserResponse2\xc7\x06\n" +
 	"\x04Auth\x129\n" +
 	"\bRegister\x12\x15.auth.RegisterRequest\x1a\x16.auth.RegisterResponse\x120\n" +
 	"\x05Login\x12\x12.auth.LoginRequest\x1a\x13.auth.LoginResponse\x123\n" +
@@ -1185,7 +1268,8 @@ const file_auth_auth_proto_rawDesc = "" +
 	"\x0eYandexLoginURL\x12\x1b.auth.YandexLoginURLRequest\x1a\x1c.auth.YandexLoginURLResponse\x12N\n" +
 	"\x0fYandexAuthorize\x12\x1c.auth.YandexAuthorizeRequest\x1a\x1d.auth.YandexAuthorizeResponse\x12H\n" +
 	"\rIsUserBlocked\x12\x1a.auth.IsUserBlockedRequest\x1a\x1b.auth.IsUserBlockedResponse\x12<\n" +
-	"\tBlockUser\x12\x16.auth.BlockUserRequest\x1a\x17.auth.BlockUserResponseB\x10Z\x0eauth.v1;authv1b\x06proto3"
+	"\tBlockUser\x12\x16.auth.BlockUserRequest\x1a\x17.auth.BlockUserResponse\x12>\n" +
+	"\vUnblockUser\x12\x16.auth.BlockUserRequest\x1a\x17.auth.BlockUserResponseB\x10Z\x0eauth.v1;authv1b\x06proto3"
 
 var (
 	file_auth_auth_proto_rawDescOnce sync.Once
@@ -1199,7 +1283,7 @@ func file_auth_auth_proto_rawDescGZIP() []byte {
 	return file_auth_auth_proto_rawDescData
 }
 
-var file_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
+var file_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_auth_auth_proto_goTypes = []any{
 	(*RegisterRequest)(nil),           // 0: auth.RegisterRequest
 	(*RegisterResponse)(nil),          // 1: auth.RegisterResponse
@@ -1223,17 +1307,19 @@ var file_auth_auth_proto_goTypes = []any{
 	(*IsUserBlockedResponse)(nil),     // 19: auth.IsUserBlockedResponse
 	(*BlockUserRequest)(nil),          // 20: auth.BlockUserRequest
 	(*BlockUserResponse)(nil),         // 21: auth.BlockUserResponse
-	(*timestamppb.Timestamp)(nil),     // 22: google.protobuf.Timestamp
+	(*UnblockUserRequest)(nil),        // 22: auth.UnblockUserRequest
+	(*UnblockUserResponse)(nil),       // 23: auth.UnblockUserResponse
+	(*timestamppb.Timestamp)(nil),     // 24: google.protobuf.Timestamp
 }
 var file_auth_auth_proto_depIdxs = []int32{
-	22, // 0: auth.VerifyPhoneNumberResponse.access_expire_at:type_name -> google.protobuf.Timestamp
-	22, // 1: auth.VerifyPhoneNumberResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
-	22, // 2: auth.RefreshTokenResponse.access_expire_at:type_name -> google.protobuf.Timestamp
-	22, // 3: auth.RefreshTokenResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
-	22, // 4: auth.GoogleAuthorizeResponse.access_expire_at:type_name -> google.protobuf.Timestamp
-	22, // 5: auth.GoogleAuthorizeResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
-	22, // 6: auth.YandexAuthorizeResponse.access_expire_at:type_name -> google.protobuf.Timestamp
-	22, // 7: auth.YandexAuthorizeResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
+	24, // 0: auth.VerifyPhoneNumberResponse.access_expire_at:type_name -> google.protobuf.Timestamp
+	24, // 1: auth.VerifyPhoneNumberResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
+	24, // 2: auth.RefreshTokenResponse.access_expire_at:type_name -> google.protobuf.Timestamp
+	24, // 3: auth.RefreshTokenResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
+	24, // 4: auth.GoogleAuthorizeResponse.access_expire_at:type_name -> google.protobuf.Timestamp
+	24, // 5: auth.GoogleAuthorizeResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
+	24, // 6: auth.YandexAuthorizeResponse.access_expire_at:type_name -> google.protobuf.Timestamp
+	24, // 7: auth.YandexAuthorizeResponse.refresh_expire_at:type_name -> google.protobuf.Timestamp
 	0,  // 8: auth.Auth.Register:input_type -> auth.RegisterRequest
 	2,  // 9: auth.Auth.Login:input_type -> auth.LoginRequest
 	4,  // 10: auth.Auth.Logout:input_type -> auth.LogoutRequest
@@ -1245,19 +1331,21 @@ var file_auth_auth_proto_depIdxs = []int32{
 	16, // 16: auth.Auth.YandexAuthorize:input_type -> auth.YandexAuthorizeRequest
 	18, // 17: auth.Auth.IsUserBlocked:input_type -> auth.IsUserBlockedRequest
 	20, // 18: auth.Auth.BlockUser:input_type -> auth.BlockUserRequest
-	1,  // 19: auth.Auth.Register:output_type -> auth.RegisterResponse
-	3,  // 20: auth.Auth.Login:output_type -> auth.LoginResponse
-	5,  // 21: auth.Auth.Logout:output_type -> auth.LogoutResponse
-	7,  // 22: auth.Auth.VerifyPhoneNumber:output_type -> auth.VerifyPhoneNumberResponse
-	9,  // 23: auth.Auth.RefreshToken:output_type -> auth.RefreshTokenResponse
-	11, // 24: auth.Auth.GoogleLoginURL:output_type -> auth.GoogleLoginURLResponse
-	13, // 25: auth.Auth.GoogleAuthorize:output_type -> auth.GoogleAuthorizeResponse
-	15, // 26: auth.Auth.YandexLoginURL:output_type -> auth.YandexLoginURLResponse
-	17, // 27: auth.Auth.YandexAuthorize:output_type -> auth.YandexAuthorizeResponse
-	19, // 28: auth.Auth.IsUserBlocked:output_type -> auth.IsUserBlockedResponse
-	21, // 29: auth.Auth.BlockUser:output_type -> auth.BlockUserResponse
-	19, // [19:30] is the sub-list for method output_type
-	8,  // [8:19] is the sub-list for method input_type
+	20, // 19: auth.Auth.UnblockUser:input_type -> auth.BlockUserRequest
+	1,  // 20: auth.Auth.Register:output_type -> auth.RegisterResponse
+	3,  // 21: auth.Auth.Login:output_type -> auth.LoginResponse
+	5,  // 22: auth.Auth.Logout:output_type -> auth.LogoutResponse
+	7,  // 23: auth.Auth.VerifyPhoneNumber:output_type -> auth.VerifyPhoneNumberResponse
+	9,  // 24: auth.Auth.RefreshToken:output_type -> auth.RefreshTokenResponse
+	11, // 25: auth.Auth.GoogleLoginURL:output_type -> auth.GoogleLoginURLResponse
+	13, // 26: auth.Auth.GoogleAuthorize:output_type -> auth.GoogleAuthorizeResponse
+	15, // 27: auth.Auth.YandexLoginURL:output_type -> auth.YandexLoginURLResponse
+	17, // 28: auth.Auth.YandexAuthorize:output_type -> auth.YandexAuthorizeResponse
+	19, // 29: auth.Auth.IsUserBlocked:output_type -> auth.IsUserBlockedResponse
+	21, // 30: auth.Auth.BlockUser:output_type -> auth.BlockUserResponse
+	21, // 31: auth.Auth.UnblockUser:output_type -> auth.BlockUserResponse
+	20, // [20:32] is the sub-list for method output_type
+	8,  // [8:20] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
 	8,  // [8:8] is the sub-list for extension extendee
 	0,  // [0:8] is the sub-list for field type_name
@@ -1274,7 +1362,7 @@ func file_auth_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_auth_auth_proto_rawDesc), len(file_auth_auth_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   22,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
