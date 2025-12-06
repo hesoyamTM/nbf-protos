@@ -399,6 +399,7 @@ type Chat struct {
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Avatar        string                 `protobuf:"bytes,3,opt,name=avatar,proto3" json:"avatar,omitempty"`
+	Members       []*User                `protobuf:"bytes,4,rep,name=members,proto3" json:"members,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -454,6 +455,13 @@ func (x *Chat) GetAvatar() string {
 	return ""
 }
 
+func (x *Chat) GetMembers() []*User {
+	if x != nil {
+		return x.Members
+	}
+	return nil
+}
+
 var File_chat_chat_proto protoreflect.FileDescriptor
 
 const file_chat_chat_proto_rawDesc = "" +
@@ -483,11 +491,13 @@ const file_chat_chat_proto_rawDesc = "" +
 	"\x04User\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x16\n" +
-	"\x06avatar\x18\x03 \x01(\tR\x06avatar\"B\n" +
+	"\x06avatar\x18\x03 \x01(\tR\x06avatar\"h\n" +
 	"\x04Chat\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x16\n" +
-	"\x06avatar\x18\x03 \x01(\tR\x06avatar2\xf9\x01\n" +
+	"\x06avatar\x18\x03 \x01(\tR\x06avatar\x12$\n" +
+	"\amembers\x18\x04 \x03(\v2\n" +
+	".chat.UserR\amembers2\xf9\x01\n" +
 	"\vChatService\x12F\n" +
 	"\vSendMessage\x12\x18.chat.SendMessageRequest\x1a\x19.chat.SendMessageResponse(\x010\x01\x12I\n" +
 	"\x0eGetChatsByUser\x12\x1a.chat.GetChatByUserRequest\x1a\x1b.chat.GetChatByUserResponse\x12W\n" +
@@ -522,17 +532,18 @@ var file_chat_chat_proto_depIdxs = []int32{
 	8, // 1: chat.SendMessageResponse.created_at:type_name -> google.protobuf.Timestamp
 	7, // 2: chat.GetChatByUserResponse.chat:type_name -> chat.Chat
 	8, // 3: chat.SetLastReadMessageRequest.last_read_message_at:type_name -> google.protobuf.Timestamp
-	0, // 4: chat.ChatService.SendMessage:input_type -> chat.SendMessageRequest
-	2, // 5: chat.ChatService.GetChatsByUser:input_type -> chat.GetChatByUserRequest
-	4, // 6: chat.ChatService.SetLastReadMessage:input_type -> chat.SetLastReadMessageRequest
-	1, // 7: chat.ChatService.SendMessage:output_type -> chat.SendMessageResponse
-	3, // 8: chat.ChatService.GetChatsByUser:output_type -> chat.GetChatByUserResponse
-	5, // 9: chat.ChatService.SetLastReadMessage:output_type -> chat.SetLastReadMessageResponse
-	7, // [7:10] is the sub-list for method output_type
-	4, // [4:7] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	6, // 4: chat.Chat.members:type_name -> chat.User
+	0, // 5: chat.ChatService.SendMessage:input_type -> chat.SendMessageRequest
+	2, // 6: chat.ChatService.GetChatsByUser:input_type -> chat.GetChatByUserRequest
+	4, // 7: chat.ChatService.SetLastReadMessage:input_type -> chat.SetLastReadMessageRequest
+	1, // 8: chat.ChatService.SendMessage:output_type -> chat.SendMessageResponse
+	3, // 9: chat.ChatService.GetChatsByUser:output_type -> chat.GetChatByUserResponse
+	5, // 10: chat.ChatService.SetLastReadMessage:output_type -> chat.SetLastReadMessageResponse
+	8, // [8:11] is the sub-list for method output_type
+	5, // [5:8] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_chat_chat_proto_init() }
