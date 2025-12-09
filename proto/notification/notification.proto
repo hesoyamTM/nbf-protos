@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package notification;
+
+option go_package = "notification.v1;notificationv1";
+
+import "google/protobuf/timestamp.proto";
+
+service NotificationService {
+  rpc GetNotificationList(GetNotificationListRequest) returns (GetNotificationListResponse);
+  rpc GettingNotification(GettingNotificationRequest) returns (stream GettingNotificationResponse);
+}
+
+message Notification {
+  string id = 1;
+  string title = 2;
+  string body = 3;
+  google.protobuf.Timestamp created_at = 4;
+}
+
+message GetNotificationListRequest {
+  string user_id = 1;
+}
+
+message GetNotificationListResponse {
+  repeated Notification notifications = 1;
+}
+
+message GettingNotificationRequest {
+  string user_id = 1;
+  string notification_id = 2;
+}
+
+message GettingNotificationResponse {
+  Notification notification = 1;
+}
