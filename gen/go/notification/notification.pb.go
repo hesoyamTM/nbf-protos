@@ -28,6 +28,7 @@ type Notification struct {
 	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
 	Body          string                 `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Read          bool                   `protobuf:"varint,5,opt,name=read,proto3" json:"read,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -88,6 +89,13 @@ func (x *Notification) GetCreatedAt() *timestamppb.Timestamp {
 		return x.CreatedAt
 	}
 	return nil
+}
+
+func (x *Notification) GetRead() bool {
+	if x != nil {
+		return x.Read
+	}
+	return false
 }
 
 type GetNotificationListRequest struct {
@@ -274,17 +282,98 @@ func (x *GettingNotificationResponse) GetNotification() *Notification {
 	return nil
 }
 
+type ReadNotificationsRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	NotificationIds []string               `protobuf:"bytes,1,rep,name=notification_ids,json=notificationIds,proto3" json:"notification_ids,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *ReadNotificationsRequest) Reset() {
+	*x = ReadNotificationsRequest{}
+	mi := &file_notification_notification_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReadNotificationsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadNotificationsRequest) ProtoMessage() {}
+
+func (x *ReadNotificationsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_notification_notification_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadNotificationsRequest.ProtoReflect.Descriptor instead.
+func (*ReadNotificationsRequest) Descriptor() ([]byte, []int) {
+	return file_notification_notification_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ReadNotificationsRequest) GetNotificationIds() []string {
+	if x != nil {
+		return x.NotificationIds
+	}
+	return nil
+}
+
+type ReadNotificationsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReadNotificationsResponse) Reset() {
+	*x = ReadNotificationsResponse{}
+	mi := &file_notification_notification_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReadNotificationsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadNotificationsResponse) ProtoMessage() {}
+
+func (x *ReadNotificationsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_notification_notification_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadNotificationsResponse.ProtoReflect.Descriptor instead.
+func (*ReadNotificationsResponse) Descriptor() ([]byte, []int) {
+	return file_notification_notification_proto_rawDescGZIP(), []int{6}
+}
+
 var File_notification_notification_proto protoreflect.FileDescriptor
 
 const file_notification_notification_proto_rawDesc = "" +
 	"\n" +
-	"\x1fnotification/notification.proto\x12\fnotification\x1a\x1fgoogle/protobuf/timestamp.proto\"\x83\x01\n" +
+	"\x1fnotification/notification.proto\x12\fnotification\x1a\x1fgoogle/protobuf/timestamp.proto\"\x97\x01\n" +
 	"\fNotification\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12\x12\n" +
 	"\x04body\x18\x03 \x01(\tR\x04body\x129\n" +
 	"\n" +
-	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"5\n" +
+	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12\x12\n" +
+	"\x04read\x18\x05 \x01(\bR\x04read\"5\n" +
 	"\x1aGetNotificationListRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\"_\n" +
 	"\x1bGetNotificationListResponse\x12@\n" +
@@ -293,10 +382,14 @@ const file_notification_notification_proto_rawDesc = "" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12'\n" +
 	"\x0fnotification_id\x18\x02 \x01(\tR\x0enotificationId\"]\n" +
 	"\x1bGettingNotificationResponse\x12>\n" +
-	"\fnotification\x18\x01 \x01(\v2\x1a.notification.NotificationR\fnotification2\xef\x01\n" +
+	"\fnotification\x18\x01 \x01(\v2\x1a.notification.NotificationR\fnotification\"E\n" +
+	"\x18ReadNotificationsRequest\x12)\n" +
+	"\x10notification_ids\x18\x01 \x03(\tR\x0fnotificationIds\"\x1b\n" +
+	"\x19ReadNotificationsResponse2\xd5\x02\n" +
 	"\x13NotificationService\x12j\n" +
 	"\x13GetNotificationList\x12(.notification.GetNotificationListRequest\x1a).notification.GetNotificationListResponse\x12l\n" +
-	"\x13GettingNotification\x12(.notification.GettingNotificationRequest\x1a).notification.GettingNotificationResponse0\x01B Z\x1enotification.v1;notificationv1b\x06proto3"
+	"\x13GettingNotification\x12(.notification.GettingNotificationRequest\x1a).notification.GettingNotificationResponse0\x01\x12d\n" +
+	"\x11ReadNotifications\x12&.notification.ReadNotificationsRequest\x1a'.notification.ReadNotificationsResponseB Z\x1enotification.v1;notificationv1b\x06proto3"
 
 var (
 	file_notification_notification_proto_rawDescOnce sync.Once
@@ -310,25 +403,29 @@ func file_notification_notification_proto_rawDescGZIP() []byte {
 	return file_notification_notification_proto_rawDescData
 }
 
-var file_notification_notification_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_notification_notification_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_notification_notification_proto_goTypes = []any{
 	(*Notification)(nil),                // 0: notification.Notification
 	(*GetNotificationListRequest)(nil),  // 1: notification.GetNotificationListRequest
 	(*GetNotificationListResponse)(nil), // 2: notification.GetNotificationListResponse
 	(*GettingNotificationRequest)(nil),  // 3: notification.GettingNotificationRequest
 	(*GettingNotificationResponse)(nil), // 4: notification.GettingNotificationResponse
-	(*timestamppb.Timestamp)(nil),       // 5: google.protobuf.Timestamp
+	(*ReadNotificationsRequest)(nil),    // 5: notification.ReadNotificationsRequest
+	(*ReadNotificationsResponse)(nil),   // 6: notification.ReadNotificationsResponse
+	(*timestamppb.Timestamp)(nil),       // 7: google.protobuf.Timestamp
 }
 var file_notification_notification_proto_depIdxs = []int32{
-	5, // 0: notification.Notification.created_at:type_name -> google.protobuf.Timestamp
+	7, // 0: notification.Notification.created_at:type_name -> google.protobuf.Timestamp
 	0, // 1: notification.GetNotificationListResponse.notifications:type_name -> notification.Notification
 	0, // 2: notification.GettingNotificationResponse.notification:type_name -> notification.Notification
 	1, // 3: notification.NotificationService.GetNotificationList:input_type -> notification.GetNotificationListRequest
 	3, // 4: notification.NotificationService.GettingNotification:input_type -> notification.GettingNotificationRequest
-	2, // 5: notification.NotificationService.GetNotificationList:output_type -> notification.GetNotificationListResponse
-	4, // 6: notification.NotificationService.GettingNotification:output_type -> notification.GettingNotificationResponse
-	5, // [5:7] is the sub-list for method output_type
-	3, // [3:5] is the sub-list for method input_type
+	5, // 5: notification.NotificationService.ReadNotifications:input_type -> notification.ReadNotificationsRequest
+	2, // 6: notification.NotificationService.GetNotificationList:output_type -> notification.GetNotificationListResponse
+	4, // 7: notification.NotificationService.GettingNotification:output_type -> notification.GettingNotificationResponse
+	6, // 8: notification.NotificationService.ReadNotifications:output_type -> notification.ReadNotificationsResponse
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
 	3, // [3:3] is the sub-list for extension extendee
 	0, // [0:3] is the sub-list for field type_name
@@ -345,7 +442,7 @@ func file_notification_notification_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_notification_notification_proto_rawDesc), len(file_notification_notification_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

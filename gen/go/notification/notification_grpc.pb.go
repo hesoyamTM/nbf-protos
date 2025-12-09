@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	NotificationService_GetNotificationList_FullMethodName = "/notification.NotificationService/GetNotificationList"
 	NotificationService_GettingNotification_FullMethodName = "/notification.NotificationService/GettingNotification"
+	NotificationService_ReadNotifications_FullMethodName   = "/notification.NotificationService/ReadNotifications"
 )
 
 // NotificationServiceClient is the client API for NotificationService service.
@@ -29,6 +30,7 @@ const (
 type NotificationServiceClient interface {
 	GetNotificationList(ctx context.Context, in *GetNotificationListRequest, opts ...grpc.CallOption) (*GetNotificationListResponse, error)
 	GettingNotification(ctx context.Context, in *GettingNotificationRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[GettingNotificationResponse], error)
+	ReadNotifications(ctx context.Context, in *ReadNotificationsRequest, opts ...grpc.CallOption) (*ReadNotificationsResponse, error)
 }
 
 type notificationServiceClient struct {
@@ -68,12 +70,23 @@ func (c *notificationServiceClient) GettingNotification(ctx context.Context, in 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type NotificationService_GettingNotificationClient = grpc.ServerStreamingClient[GettingNotificationResponse]
 
+func (c *notificationServiceClient) ReadNotifications(ctx context.Context, in *ReadNotificationsRequest, opts ...grpc.CallOption) (*ReadNotificationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReadNotificationsResponse)
+	err := c.cc.Invoke(ctx, NotificationService_ReadNotifications_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NotificationServiceServer is the server API for NotificationService service.
 // All implementations must embed UnimplementedNotificationServiceServer
 // for forward compatibility.
 type NotificationServiceServer interface {
 	GetNotificationList(context.Context, *GetNotificationListRequest) (*GetNotificationListResponse, error)
 	GettingNotification(*GettingNotificationRequest, grpc.ServerStreamingServer[GettingNotificationResponse]) error
+	ReadNotifications(context.Context, *ReadNotificationsRequest) (*ReadNotificationsResponse, error)
 	mustEmbedUnimplementedNotificationServiceServer()
 }
 
@@ -89,6 +102,9 @@ func (UnimplementedNotificationServiceServer) GetNotificationList(context.Contex
 }
 func (UnimplementedNotificationServiceServer) GettingNotification(*GettingNotificationRequest, grpc.ServerStreamingServer[GettingNotificationResponse]) error {
 	return status.Errorf(codes.Unimplemented, "method GettingNotification not implemented")
+}
+func (UnimplementedNotificationServiceServer) ReadNotifications(context.Context, *ReadNotificationsRequest) (*ReadNotificationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadNotifications not implemented")
 }
 func (UnimplementedNotificationServiceServer) mustEmbedUnimplementedNotificationServiceServer() {}
 func (UnimplementedNotificationServiceServer) testEmbeddedByValue()                             {}
@@ -140,6 +156,24 @@ func _NotificationService_GettingNotification_Handler(srv interface{}, stream gr
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type NotificationService_GettingNotificationServer = grpc.ServerStreamingServer[GettingNotificationResponse]
 
+func _NotificationService_ReadNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadNotificationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).ReadNotifications(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_ReadNotifications_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).ReadNotifications(ctx, req.(*ReadNotificationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NotificationService_ServiceDesc is the grpc.ServiceDesc for NotificationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -150,6 +184,10 @@ var NotificationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetNotificationList",
 			Handler:    _NotificationService_GetNotificationList_Handler,
+		},
+		{
+			MethodName: "ReadNotifications",
+			Handler:    _NotificationService_ReadNotifications_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
