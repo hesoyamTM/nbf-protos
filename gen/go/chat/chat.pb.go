@@ -462,6 +462,118 @@ func (x *Chat) GetMembers() []*User {
 	return nil
 }
 
+type GetMessageEventsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetMessageEventsRequest) Reset() {
+	*x = GetMessageEventsRequest{}
+	mi := &file_chat_chat_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetMessageEventsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMessageEventsRequest) ProtoMessage() {}
+
+func (x *GetMessageEventsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_chat_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMessageEventsRequest.ProtoReflect.Descriptor instead.
+func (*GetMessageEventsRequest) Descriptor() ([]byte, []int) {
+	return file_chat_chat_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *GetMessageEventsRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type GetMessageEventsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ChatId        string                 `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	User          *User                  `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
+	Text          string                 `protobuf:"bytes,3,opt,name=text,proto3" json:"text,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetMessageEventsResponse) Reset() {
+	*x = GetMessageEventsResponse{}
+	mi := &file_chat_chat_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetMessageEventsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetMessageEventsResponse) ProtoMessage() {}
+
+func (x *GetMessageEventsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_chat_chat_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetMessageEventsResponse.ProtoReflect.Descriptor instead.
+func (*GetMessageEventsResponse) Descriptor() ([]byte, []int) {
+	return file_chat_chat_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *GetMessageEventsResponse) GetChatId() string {
+	if x != nil {
+		return x.ChatId
+	}
+	return ""
+}
+
+func (x *GetMessageEventsResponse) GetUser() *User {
+	if x != nil {
+		return x.User
+	}
+	return nil
+}
+
+func (x *GetMessageEventsResponse) GetText() string {
+	if x != nil {
+		return x.Text
+	}
+	return ""
+}
+
+func (x *GetMessageEventsResponse) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
 var File_chat_chat_proto protoreflect.FileDescriptor
 
 const file_chat_chat_proto_rawDesc = "" +
@@ -497,11 +609,21 @@ const file_chat_chat_proto_rawDesc = "" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x16\n" +
 	"\x06avatar\x18\x03 \x01(\tR\x06avatar\x12$\n" +
 	"\amembers\x18\x04 \x03(\v2\n" +
-	".chat.UserR\amembers2\xf9\x01\n" +
+	".chat.UserR\amembers\"2\n" +
+	"\x17GetMessageEventsRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"\xa2\x01\n" +
+	"\x18GetMessageEventsResponse\x12\x17\n" +
+	"\achat_id\x18\x01 \x01(\tR\x06chatId\x12\x1e\n" +
+	"\x04user\x18\x02 \x01(\v2\n" +
+	".chat.UserR\x04user\x12\x12\n" +
+	"\x04text\x18\x03 \x01(\tR\x04text\x129\n" +
+	"\n" +
+	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt2\xce\x02\n" +
 	"\vChatService\x12F\n" +
 	"\vSendMessage\x12\x18.chat.SendMessageRequest\x1a\x19.chat.SendMessageResponse(\x010\x01\x12I\n" +
 	"\x0eGetChatsByUser\x12\x1a.chat.GetChatByUserRequest\x1a\x1b.chat.GetChatByUserResponse\x12W\n" +
-	"\x12SetLastReadMessage\x12\x1f.chat.SetLastReadMessageRequest\x1a .chat.SetLastReadMessageResponseB\x10Z\x0echat.v1;chatv1b\x06proto3"
+	"\x12SetLastReadMessage\x12\x1f.chat.SetLastReadMessageRequest\x1a .chat.SetLastReadMessageResponse\x12S\n" +
+	"\x10GetMessageEvents\x12\x1d.chat.GetMessageEventsRequest\x1a\x1e.chat.GetMessageEventsResponse0\x01B\x10Z\x0echat.v1;chatv1b\x06proto3"
 
 var (
 	file_chat_chat_proto_rawDescOnce sync.Once
@@ -515,7 +637,7 @@ func file_chat_chat_proto_rawDescGZIP() []byte {
 	return file_chat_chat_proto_rawDescData
 }
 
-var file_chat_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_chat_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_chat_chat_proto_goTypes = []any{
 	(*SendMessageRequest)(nil),         // 0: chat.SendMessageRequest
 	(*SendMessageResponse)(nil),        // 1: chat.SendMessageResponse
@@ -525,25 +647,31 @@ var file_chat_chat_proto_goTypes = []any{
 	(*SetLastReadMessageResponse)(nil), // 5: chat.SetLastReadMessageResponse
 	(*User)(nil),                       // 6: chat.User
 	(*Chat)(nil),                       // 7: chat.Chat
-	(*timestamppb.Timestamp)(nil),      // 8: google.protobuf.Timestamp
+	(*GetMessageEventsRequest)(nil),    // 8: chat.GetMessageEventsRequest
+	(*GetMessageEventsResponse)(nil),   // 9: chat.GetMessageEventsResponse
+	(*timestamppb.Timestamp)(nil),      // 10: google.protobuf.Timestamp
 }
 var file_chat_chat_proto_depIdxs = []int32{
-	6, // 0: chat.SendMessageResponse.user:type_name -> chat.User
-	8, // 1: chat.SendMessageResponse.created_at:type_name -> google.protobuf.Timestamp
-	7, // 2: chat.GetChatByUserResponse.chat:type_name -> chat.Chat
-	8, // 3: chat.SetLastReadMessageRequest.last_read_message_at:type_name -> google.protobuf.Timestamp
-	6, // 4: chat.Chat.members:type_name -> chat.User
-	0, // 5: chat.ChatService.SendMessage:input_type -> chat.SendMessageRequest
-	2, // 6: chat.ChatService.GetChatsByUser:input_type -> chat.GetChatByUserRequest
-	4, // 7: chat.ChatService.SetLastReadMessage:input_type -> chat.SetLastReadMessageRequest
-	1, // 8: chat.ChatService.SendMessage:output_type -> chat.SendMessageResponse
-	3, // 9: chat.ChatService.GetChatsByUser:output_type -> chat.GetChatByUserResponse
-	5, // 10: chat.ChatService.SetLastReadMessage:output_type -> chat.SetLastReadMessageResponse
-	8, // [8:11] is the sub-list for method output_type
-	5, // [5:8] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	6,  // 0: chat.SendMessageResponse.user:type_name -> chat.User
+	10, // 1: chat.SendMessageResponse.created_at:type_name -> google.protobuf.Timestamp
+	7,  // 2: chat.GetChatByUserResponse.chat:type_name -> chat.Chat
+	10, // 3: chat.SetLastReadMessageRequest.last_read_message_at:type_name -> google.protobuf.Timestamp
+	6,  // 4: chat.Chat.members:type_name -> chat.User
+	6,  // 5: chat.GetMessageEventsResponse.user:type_name -> chat.User
+	10, // 6: chat.GetMessageEventsResponse.created_at:type_name -> google.protobuf.Timestamp
+	0,  // 7: chat.ChatService.SendMessage:input_type -> chat.SendMessageRequest
+	2,  // 8: chat.ChatService.GetChatsByUser:input_type -> chat.GetChatByUserRequest
+	4,  // 9: chat.ChatService.SetLastReadMessage:input_type -> chat.SetLastReadMessageRequest
+	8,  // 10: chat.ChatService.GetMessageEvents:input_type -> chat.GetMessageEventsRequest
+	1,  // 11: chat.ChatService.SendMessage:output_type -> chat.SendMessageResponse
+	3,  // 12: chat.ChatService.GetChatsByUser:output_type -> chat.GetChatByUserResponse
+	5,  // 13: chat.ChatService.SetLastReadMessage:output_type -> chat.SetLastReadMessageResponse
+	9,  // 14: chat.ChatService.GetMessageEvents:output_type -> chat.GetMessageEventsResponse
+	11, // [11:15] is the sub-list for method output_type
+	7,  // [7:11] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_chat_chat_proto_init() }
@@ -557,7 +685,7 @@ func file_chat_chat_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_chat_chat_proto_rawDesc), len(file_chat_chat_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

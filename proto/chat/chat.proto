@@ -10,6 +10,7 @@ service ChatService {
   rpc SendMessage(stream SendMessageRequest) returns (stream SendMessageResponse);
   rpc GetChatsByUser(GetChatByUserRequest) returns (GetChatByUserResponse);
   rpc SetLastReadMessage(SetLastReadMessageRequest) returns (SetLastReadMessageResponse);
+  rpc GetMessageEvents(GetMessageEventsRequest) returns (stream GetMessageEventsResponse);
 }
 
 message SendMessageRequest {
@@ -53,4 +54,15 @@ message Chat {
   string name = 2;
   string avatar = 3;
   repeated User members = 4;
+}
+
+message GetMessageEventsRequest {
+  string user_id = 1;
+}
+
+message GetMessageEventsResponse {
+  string chat_id = 1;
+  User user = 2;
+  string text = 3;
+  google.protobuf.Timestamp created_at = 4;
 }

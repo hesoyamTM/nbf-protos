@@ -22,6 +22,7 @@ const (
 	ChatService_SendMessage_FullMethodName        = "/chat.ChatService/SendMessage"
 	ChatService_GetChatsByUser_FullMethodName     = "/chat.ChatService/GetChatsByUser"
 	ChatService_SetLastReadMessage_FullMethodName = "/chat.ChatService/SetLastReadMessage"
+	ChatService_GetMessageEvents_FullMethodName   = "/chat.ChatService/GetMessageEvents"
 )
 
 // ChatServiceClient is the client API for ChatService service.
@@ -31,6 +32,7 @@ type ChatServiceClient interface {
 	SendMessage(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[SendMessageRequest, SendMessageResponse], error)
 	GetChatsByUser(ctx context.Context, in *GetChatByUserRequest, opts ...grpc.CallOption) (*GetChatByUserResponse, error)
 	SetLastReadMessage(ctx context.Context, in *SetLastReadMessageRequest, opts ...grpc.CallOption) (*SetLastReadMessageResponse, error)
+	GetMessageEvents(ctx context.Context, in *GetMessageEventsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[GetMessageEventsResponse], error)
 }
 
 type chatServiceClient struct {
@@ -74,6 +76,25 @@ func (c *chatServiceClient) SetLastReadMessage(ctx context.Context, in *SetLastR
 	return out, nil
 }
 
+func (c *chatServiceClient) GetMessageEvents(ctx context.Context, in *GetMessageEventsRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[GetMessageEventsResponse], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &ChatService_ServiceDesc.Streams[1], ChatService_GetMessageEvents_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[GetMessageEventsRequest, GetMessageEventsResponse]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ChatService_GetMessageEventsClient = grpc.ServerStreamingClient[GetMessageEventsResponse]
+
 // ChatServiceServer is the server API for ChatService service.
 // All implementations must embed UnimplementedChatServiceServer
 // for forward compatibility.
@@ -81,6 +102,7 @@ type ChatServiceServer interface {
 	SendMessage(grpc.BidiStreamingServer[SendMessageRequest, SendMessageResponse]) error
 	GetChatsByUser(context.Context, *GetChatByUserRequest) (*GetChatByUserResponse, error)
 	SetLastReadMessage(context.Context, *SetLastReadMessageRequest) (*SetLastReadMessageResponse, error)
+	GetMessageEvents(*GetMessageEventsRequest, grpc.ServerStreamingServer[GetMessageEventsResponse]) error
 	mustEmbedUnimplementedChatServiceServer()
 }
 
@@ -99,6 +121,9 @@ func (UnimplementedChatServiceServer) GetChatsByUser(context.Context, *GetChatBy
 }
 func (UnimplementedChatServiceServer) SetLastReadMessage(context.Context, *SetLastReadMessageRequest) (*SetLastReadMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetLastReadMessage not implemented")
+}
+func (UnimplementedChatServiceServer) GetMessageEvents(*GetMessageEventsRequest, grpc.ServerStreamingServer[GetMessageEventsResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method GetMessageEvents not implemented")
 }
 func (UnimplementedChatServiceServer) mustEmbedUnimplementedChatServiceServer() {}
 func (UnimplementedChatServiceServer) testEmbeddedByValue()                     {}
@@ -164,6 +189,17 @@ func _ChatService_SetLastReadMessage_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ChatService_GetMessageEvents_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(GetMessageEventsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ChatServiceServer).GetMessageEvents(m, &grpc.GenericServerStream[GetMessageEventsRequest, GetMessageEventsResponse]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type ChatService_GetMessageEventsServer = grpc.ServerStreamingServer[GetMessageEventsResponse]
+
 // ChatService_ServiceDesc is the grpc.ServiceDesc for ChatService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -186,6 +222,11 @@ var ChatService_ServiceDesc = grpc.ServiceDesc{
 			Handler:       _ChatService_SendMessage_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
+		},
+		{
+			StreamName:    "GetMessageEvents",
+			Handler:       _ChatService_GetMessageEvents_Handler,
+			ServerStreams: true,
 		},
 	},
 	Metadata: "chat/chat.proto",
