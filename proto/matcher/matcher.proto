@@ -154,6 +154,7 @@ message FindGroupsResponse {
 // Group Service
 service GroupService {
   rpc GetRequests(GetRequestsRequest) returns (GetRequestsResponse);
+  rpc GetRequestsByUserId(GetRequestsByUserIdRequest) returns (GetRequestsResponse);
   rpc SendJoinRequest(SendJoinRequestRequest) returns (SendJoinRequestResponse);
   rpc AcceptJoinRequest(AcceptJoinRequestRequest) returns (google.protobuf.Empty);
   rpc RejectJoinRequest(RejectJoinRequestRequest) returns (google.protobuf.Empty);
@@ -161,6 +162,10 @@ service GroupService {
 
 message GetRequestsRequest {
   string group_id = 1;
+}
+
+message GetRequestsByUserIdRequest {
+  string user_id = 1;
 }
 
 message GetRequestsResponse {
